@@ -88,17 +88,75 @@
             width: 100%;
         }
 
-        /* Hero Section - Ultra Clean */
+        /* Hero Section - Professional Side-by-Side Layout */
         .hero {
             background: #ffffff;
             padding: 12rem 0 8rem;
-            text-align: center;
             margin-top: 80px;
         }
 
         .hero-content {
-            max-width: 800px;
+            max-width: 1200px;
             margin: 0 auto;
+            display: grid;
+            grid-template-columns: 400px 1fr;
+            gap: 6rem;
+            align-items: center;
+        }
+
+        .profile-section {
+            display: flex;
+            flex-direction: column;
+            align-items: center;
+            justify-content: center;
+        }
+
+        .content-section {
+            text-align: left;
+        }
+
+        .content-section h1 {
+            font-size: 4.5rem;
+            margin-bottom: 1rem;
+            font-weight: 700;
+            color: #2c3e50;
+            letter-spacing: -2px;
+            line-height: 1.1;
+        }
+
+        .content-section .subtitle {
+            font-size: 1.6rem;
+            margin-bottom: 2rem;
+            color: #3498db;
+            font-weight: 500;
+        }
+
+        .content-section p {
+            font-size: 1.3rem;
+            margin-bottom: 3rem;
+            color: #7f8c8d;
+            line-height: 1.7;
+            max-width: 600px;
+        }
+
+        .content-section .cta-button {
+            display: inline-block;
+            background: #3498db;
+            color: white;
+            text-decoration: none;
+            padding: 20px 40px;
+            border-radius: 50px;
+            font-weight: 600;
+            font-size: 1.1rem;
+            transition: all 0.3s ease;
+            box-shadow: 0 8px 30px rgba(52, 152, 219, 0.3);
+            letter-spacing: 0.5px;
+        }
+
+        .content-section .cta-button:hover {
+            background: #2980b9;
+            transform: translateY(-3px);
+            box-shadow: 0 15px 40px rgba(52, 152, 219, 0.4);
         }
 
         .profile-image {
@@ -265,51 +323,6 @@
             25% { transform: translateY(-20px) rotate(90deg); opacity: 1; }
             50% { transform: translateY(-40px) rotate(180deg); opacity: 0.8; }
             75% { transform: translateY(-20px) rotate(270deg); opacity: 1; }
-        }
-
-        .hero h1 {
-            font-size: 4rem;
-            margin-bottom: 1rem;
-            font-weight: 700;
-            color: #2c3e50;
-            letter-spacing: -2px;
-        }
-
-        .subtitle {
-            font-size: 1.4rem;
-            margin-bottom: 2rem;
-            color: #3498db;
-            font-weight: 500;
-        }
-
-        .hero p {
-            font-size: 1.2rem;
-            margin-bottom: 3rem;
-            color: #7f8c8d;
-            max-width: 600px;
-            margin-left: auto;
-            margin-right: auto;
-            line-height: 1.7;
-        }
-
-        .cta-button {
-            display: inline-block;
-            background: #3498db;
-            color: white;
-            text-decoration: none;
-            padding: 18px 36px;
-            border-radius: 50px;
-            font-weight: 600;
-            font-size: 1rem;
-            transition: all 0.3s ease;
-            box-shadow: 0 8px 30px rgba(52, 152, 219, 0.3);
-            letter-spacing: 0.5px;
-        }
-
-        .cta-button:hover {
-            background: #2980b9;
-            transform: translateY(-3px);
-            box-shadow: 0 15px 40px rgba(52, 152, 219, 0.4);
         }
 
         /* Features Section - Clean Cards */
@@ -658,11 +671,21 @@
                 display: none;
             }
 
-            .hero h1 {
+            .hero-content {
+                grid-template-columns: 1fr;
+                gap: 3rem;
+                text-align: center;
+            }
+
+            .content-section {
+                text-align: center;
+            }
+
+            .content-section h1 {
                 font-size: 2.8rem;
             }
 
-            .hero .subtitle {
+            .content-section .subtitle {
                 font-size: 1.2rem;
             }
 
@@ -717,8 +740,16 @@
                 padding: 8rem 0 4rem;
             }
 
-            .hero h1 {
+            .hero-content {
+                gap: 2rem;
+            }
+
+            .content-section h1 {
                 font-size: 2.2rem;
+            }
+
+            .content-section p {
+                font-size: 1.1rem;
             }
 
             .profile-image {
@@ -779,24 +810,28 @@
     <section class="hero" id="home">
         <div class="container">
             <div class="hero-content">
-                <div class="profile-container">
-                    <div class="floating-particles">
-                        <div class="particle"></div>
-                        <div class="particle"></div>
-                        <div class="particle"></div>
-                        <div class="particle"></div>
+                <div class="profile-section">
+                    <div class="profile-container">
+                        <div class="floating-particles">
+                            <div class="particle"></div>
+                            <div class="particle"></div>
+                            <div class="particle"></div>
+                            <div class="particle"></div>
+                        </div>
+                        <img src="bharath-profile.jpg" alt="N. Bharath - Perplexity Campus Partner at DSU" class="profile-image">
+                        <div class="profile-badge">🚀</div>
                     </div>
-                    <img src="bharath-profile.jpg" alt="N. Bharath - Perplexity Campus Partner at DSU" class="profile-image">
-                    <div class="profile-badge">🚀</div>
                 </div>
                 
-                <h1>N. Bharath</h1>
-                <p class="subtitle">Perplexity Campus Partner | DSU Engineering</p>
-                <p>Computer Science student at Dayananda Sagar University, passionate about driving innovation through AI technology and fostering collaborative learning experiences across campus communities.</p>
-                
-                <a href="https://pplx.ai/n-bharath" target="_blank" class="cta-button">
-                    🌟 Visit My Comet Browser
-                </a>
+                <div class="content-section">
+                    <h1>N. Bharath</h1>
+                    <p class="subtitle">Perplexity Campus Partner | DSU Engineering</p>
+                    <p>Computer Science student at Dayananda Sagar University, passionate about driving innovation through AI technology and fostering collaborative learning experiences across campus communities.</p>
+                    
+                    <a href="https://pplx.ai/n-bharath" target="_blank" class="cta-button">
+                        🌟 Visit My Comet Browser
+                    </a>
+                </div>
             </div>
         </div>
     </section>
