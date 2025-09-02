@@ -1,0 +1,399 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Weekly Class Timetable - N.BHARATH</title>
+    <style>
+        * {
+            margin: 0;
+            padding: 0;
+            box-sizing: border-box;
+        }
+
+        body {
+            font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
+            background: linear-gradient(135deg, #667eea 0%, #764ba2 100%);
+            min-height: 100vh;
+            padding: 20px;
+            color: #333;
+        }
+
+        .container {
+            max-width: 1400px;
+            margin: 0 auto;
+            background: rgba(255, 255, 255, 0.95);
+            border-radius: 20px;
+            box-shadow: 0 20px 40px rgba(0, 0, 0, 0.1);
+            overflow: hidden;
+            backdrop-filter: blur(10px);
+        }
+
+        .header {
+            background: linear-gradient(135deg, #2c3e50, #3498db);
+            color: white;
+            padding: 30px;
+            text-align: center;
+            position: relative;
+            overflow: hidden;
+        }
+
+        .header::before {
+            content: '';
+            position: absolute;
+            top: -50%;
+            left: -50%;
+            width: 200%;
+            height: 200%;
+            background: radial-gradient(circle, rgba(255,255,255,0.1) 0%, transparent 70%);
+            animation: rotate 20s linear infinite;
+        }
+
+        @keyframes rotate {
+            0% { transform: rotate(0deg); }
+            100% { transform: rotate(360deg); }
+        }
+
+        .header h1 {
+            font-size: 2.5rem;
+            margin-bottom: 10px;
+            position: relative;
+            z-index: 1;
+        }
+
+        .header p {
+            font-size: 1.2rem;
+            opacity: 0.9;
+            position: relative;
+            z-index: 1;
+        }
+
+        .timetable-container {
+            padding: 30px;
+            overflow-x: auto;
+        }
+
+        table {
+            width: 100%;
+            border-collapse: collapse;
+            margin: 20px 0;
+            background: white;
+            border-radius: 15px;
+            overflow: hidden;
+            box-shadow: 0 10px 30px rgba(0, 0, 0, 0.1);
+        }
+
+        caption {
+            font-size: 1.3rem;
+            font-weight: bold;
+            color: #2c3e50;
+            margin-bottom: 15px;
+            padding: 15px;
+            background: linear-gradient(135deg, #f8f9fa, #e9ecef);
+            border-radius: 10px 10px 0 0;
+        }
+
+        th, td {
+            padding: 15px 12px;
+            text-align: center;
+            border: 1px solid #e0e0e0;
+            position: relative;
+        }
+
+        th {
+            background: linear-gradient(135deg, #34495e, #2c3e50);
+            color: white;
+            font-weight: 600;
+            font-size: 0.95rem;
+            text-transform: uppercase;
+            letter-spacing: 0.5px;
+        }
+
+        .time-slot {
+            background: linear-gradient(135deg, #95a5a6, #7f8c8d) !important;
+            color: white !important;
+            font-weight: 600;
+            writing-mode: vertical-rl;
+            text-orientation: mixed;
+            min-width: 80px;
+        }
+
+        .subject {
+            font-weight: bold;
+            font-size: 0.9rem;
+            margin-bottom: 4px;
+            color: #2c3e50;
+        }
+
+        .teacher {
+            font-size: 0.8rem;
+            color: #7f8c8d;
+            font-style: italic;
+        }
+
+        .room {
+            font-size: 0.75rem;
+            color: #e74c3c;
+            font-weight: bold;
+            margin-top: 2px;
+        }
+
+        .ds { background: linear-gradient(135deg, #e8f5e8, #c8e6c9); }
+        .dld { background: linear-gradient(135deg, #fff3e0, #ffcc02); }
+        .fsd { background: linear-gradient(135deg, #e3f2fd, #2196f3); }
+        .dmgt { background: linear-gradient(135deg, #f3e5f5, #9c27b0); }
+        .tnt { background: linear-gradient(135deg, #fff8e1, #ff9800); }
+        .cts { background: linear-gradient(135deg, #e0f2f1, #009688); }
+        .sec { background: linear-gradient(135deg, #fce4ec, #e91e63); }
+
+        .break {
+            background: linear-gradient(135deg, #ffebee, #f44336) !important;
+            color: white !important;
+            font-weight: bold;
+        }
+
+        .free {
+            background: linear-gradient(135deg, #f5f5f5, #9e9e9e) !important;
+            color: #666 !important;
+            font-style: italic;
+        }
+
+        .special {
+            background: linear-gradient(135deg, #e8eaf6, #3f51b5) !important;
+            color: white !important;
+            font-weight: bold;
+        }
+
+        td:hover {
+            transform: scale(1.02);
+            transition: all 0.3s ease;
+            box-shadow: 0 5px 15px rgba(0, 0, 0, 0.2);
+            z-index: 10;
+        }
+
+        .notes {
+            margin-top: 30px;
+            padding: 25px;
+            background: linear-gradient(135deg, #f8f9fa, #e9ecef);
+            border-radius: 15px;
+            border-left: 5px solid #3498db;
+        }
+
+        .notes h4 {
+            color: #2c3e50;
+            margin-bottom: 15px;
+            font-size: 1.2rem;
+        }
+
+        .notes ul {
+            list-style: none;
+            padding-left: 0;
+        }
+
+        .notes li {
+            margin-bottom: 8px;
+            padding-left: 20px;
+            position: relative;
+            color: #555;
+            line-height: 1.6;
+        }
+
+        .notes li::before {
+            content: '▶';
+            position: absolute;
+            left: 0;
+            color: #3498db;
+            font-size: 0.8rem;
+        }
+
+        .notes strong {
+            color: #2c3e50;
+        }
+
+        @media (max-width: 768px) {
+            .header h1 { font-size: 2rem; }
+            .header p { font-size: 1rem; }
+            .timetable-container { padding: 15px; }
+            th, td { padding: 10px 8px; font-size: 0.85rem; }
+            .time-slot { writing-mode: horizontal-tb; }
+        }
+
+        @media (max-width: 480px) {
+            .header h1 { font-size: 1.7rem; }
+            th, td { padding: 8px 6px; font-size: 0.8rem; }
+        }
+    </style>
+</head>
+<body>
+    <div class="container">
+        <div class="header">
+            <h1>📚 Weekly Class Timetable</h1>
+            <p>Student: N.BHARATH | Academic Year 2025-26 | Semester 3</p>
+        </div>
+        
+        <div class="timetable-container">
+            <table>
+                <caption>Academic Year 2025-26 | Semester 3</caption>
+                <thead>
+                    <tr>
+                        <th>Day/Time</th>
+                        <th>8:30–9:25</th>
+                        <th>9:25–10:20</th>
+                        <th>10:20–10:45</th>
+                        <th>10:45–11:40</th>
+                        <th>11:40–12:35</th>
+                        <th>12:35–1:50</th>
+                        <th>1:50–2:40</th>
+                        <th>2:40–3:30</th>
+                        <th>3:30–4:20</th>
+                    </tr>
+                </thead>
+                <tbody>
+                    <tr>
+                        <td class="time-slot">Monday</td>
+                        <td class="ds">
+                            <div class="subject">DS</div>
+                            <div class="teacher">Data Structures</div>
+                        </td>
+                        <td class="dld">
+                            <div class="subject">DLD</div>
+                            <div class="teacher">Digital Logic Design</div>
+                        </td>
+                        <td class="break">Break</td>
+                        <td class="ds" colspan="2">
+                            <div class="subject">DS Lab (B2) / DLD Lab (B1)</div>
+                            <div class="teacher">Practical Session (2 Hours)</div>
+                        </td>
+                        <td class="break">LUNCH BREAK</td>
+                        <td class="fsd">
+                            <div class="subject">FSD</div>
+                            <div class="teacher">Full Stack Development</div>
+                        </td>
+                        <td class="cts">
+                            <div class="subject">CTS</div>
+                            <div class="teacher">Critical Thinking Skills</div>
+                        </td>
+                        <td class="sec">
+                            <div class="subject">SEC</div>
+                            <div class="teacher">Soft Skills & Ethics Class</div>
+                        </td>
+                    </tr>
+                    <tr>
+                        <td class="time-slot">Tuesday</td>
+                        <td class="dmgt">
+                            <div class="subject">DMGT</div>
+                            <div class="teacher">Design Management</div>
+                        </td>
+                        <td class="tnt">
+                            <div class="subject">TNT</div>
+                            <div class="teacher">Technical & Non-Technical Training</div>
+                        </td>
+                        <td class="break">Break</td>
+                        <td class="ds">
+                            <div class="subject">DS</div>
+                            <div class="teacher">Data Structures</div>
+                        </td>
+                        <td class="ds">
+                            <div class="subject">DS</div>
+                            <div class="teacher">Data Structures</div>
+                        </td>
+                        <td class="break">LUNCH BREAK</td>
+                        <td class="fsd">
+                            <div class="subject">FSD</div>
+                            <div class="teacher">Full Stack Development</div>
+                        </td>
+                        <td class="special">LIBRARY</td>
+                        <td class="sec">
+                            <div class="subject">SEC</div>
+                            <div class="teacher">Soft Skills & Ethics Class</div>
+                        </td>
+                    </tr>
+                    <tr>
+                        <td class="time-slot">Wednesday</td>
+                        <td class="special">LIBRARY</td>
+                        <td class="dmgt">
+                            <div class="subject">DMGT</div>
+                            <div class="teacher">Design Management</div>
+                            <div class="room">Room 522</div>
+                        </td>
+                        <td class="break">TEA BREAK</td>
+                        <td class="ds">
+                            <div class="subject">DS</div>
+                            <div class="teacher">Data Structures</div>
+                        </td>
+                        <td class="fsd">
+                            <div class="subject">FSD</div>
+                            <div class="teacher">Full Stack Development</div>
+                        </td>
+                        <td class="break">LUNCH BREAK</td>
+                        <td class="tnt">
+                            <div class="subject">TNT</div>
+                            <div class="teacher">Technical & Non-Technical Training</div>
+                        </td>
+                        <td class="sec">
+                            <div class="subject">SEC</div>
+                            <div class="teacher">Soft Skills & Ethics Class</div>
+                        </td>
+                        <td class="free">Free</td>
+                    </tr>
+                    <tr>
+                        <td class="time-slot">Thursday</td>
+                        <td class="dmgt">
+                            <div class="subject">DMGT</div>
+                            <div class="teacher">Design Management</div>
+                            <div class="room">Room 519</div>
+                        </td>
+                        <td class="special">MENTOR</td>
+                        <td class="break">Break</td>
+                        <td class="special">OFFICE</td>
+                        <td class="special">SPORTS</td>
+                        <td class="break">LUNCH BREAK</td>
+                        <td class="ds">
+                            <div class="subject">DS</div>
+                            <div class="teacher">Data Structures</div>
+                        </td>
+                        <td class="cts">
+                            <div class="subject">CTS</div>
+                            <div class="teacher">Critical Thinking Skills</div>
+                        </td>
+                        <td class="special">MENTOR</td>
+                    </tr>
+                    <tr>
+                        <td class="time-slot">Friday</td>
+                        <td class="ds" colspan="2">
+                            <div class="subject">DS Lab (B1) / DLD Lab (B2)</div>
+                            <div class="teacher">Practical Session (2 Hours)</div>
+                        </td>
+                        <td class="break">Break</td>
+                        <td class="special">OFFICE</td>
+                        <td class="special">OFFICE</td>
+                        <td class="break">LUNCH BREAK</td>
+                        <td class="special">CLUB Activity</td>
+                        <td class="special">SPORTS</td>
+                        <td class="free">Free</td>
+                    </tr>
+                </tbody>
+            </table>
+
+            <div class="notes">
+                <h4>📝 Subject Abbreviations & Important Notes:</h4>
+                <ul>
+                    <li><strong>DS:</strong> Data Structures</li>
+                    <li><strong>DLD:</strong> Digital Logic Design</li>
+                    <li><strong>FSD:</strong> Full Stack Development</li>
+                    <li><strong>DMGT:</strong> Design Management</li>
+                    <li><strong>TNT:</strong> Technical & Non-Technical Training</li>
+                    <li><strong>CTS:</strong> Critical Thinking Skills</li>
+                    <li><strong>SEC:</strong> Soft Skills & Ethics Class</li>
+                    <li>Practical sessions include hands-on work with batch divisions (B1/B2) - 2 hours each</li>
+                    <li>MENTOR sessions are for academic guidance and counseling</li>
+                    <li>OFFICE hours are for faculty consultation</li>
+                    <li>SPORTS periods provide physical fitness and recreation</li>
+                    <li>CLUB activities involve student organizations and extracurricular participation</li>
+                    <li>LIBRARY periods are for research, study, and academic resources</li>
+                </ul>
+            </div>
+        </div>
+    </div>
+</body>
+</html>

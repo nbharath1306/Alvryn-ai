@@ -1,0 +1,266 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>My Favorite Music Player</title>
+    <style>
+        body {
+            font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
+            margin: 0;
+            padding: 20px;
+            background: linear-gradient(135deg, #667eea 0%, #764ba2 100%);
+            min-height: 100vh;
+            color: #333;
+        }
+        
+        .container {
+            max-width: 700px;
+            margin: 0 auto;
+            background: white;
+            border-radius: 20px;
+            padding: 40px;
+            box-shadow: 0 15px 35px rgba(0,0,0,0.2);
+        }
+        
+        h1 {
+            text-align: center;
+            color: #2d3436;
+            margin-bottom: 30px;
+            font-size: 2.5em;
+            background: linear-gradient(45deg, #667eea, #764ba2);
+            -webkit-background-clip: text;
+            -webkit-text-fill-color: transparent;
+            background-clip: text;
+        }
+        
+        .music-player {
+            background: #f8f9fa;
+            border-radius: 15px;
+            padding: 30px;
+            text-align: center;
+            box-shadow: 0 8px 20px rgba(0,0,0,0.1);
+            margin-bottom: 30px;
+        }
+        
+        .song-info {
+            margin-bottom: 25px;
+        }
+        
+        .song-title {
+            font-size: 1.8em;
+            font-weight: bold;
+            color: #2d3436;
+            margin-bottom: 5px;
+        }
+        
+        .artist-name {
+            font-size: 1.2em;
+            color: #636e72;
+            margin-bottom: 20px;
+        }
+        
+        .audio-container {
+            margin: 20px 0;
+        }
+        
+        audio {
+            width: 100%;
+            max-width: 500px;
+            height: 60px;
+            border-radius: 10px;
+            outline: none;
+        }
+        
+        audio::-webkit-media-controls-panel {
+            background-color: #667eea;
+        }
+        
+        .song-description {
+            background: linear-gradient(45deg, #667eea20, #764ba220);
+            border-radius: 10px;
+            padding: 20px;
+            margin-top: 20px;
+            border-left: 5px solid #667eea;
+        }
+        
+        .song-description h3 {
+            color: #2d3436;
+            margin-bottom: 10px;
+            font-size: 1.3em;
+        }
+        
+        .song-description p {
+            color: #636e72;
+            line-height: 1.6;
+            font-size: 1.1em;
+        }
+        
+        .options-section {
+            background: #e8f4fd;
+            border-radius: 15px;
+            padding: 25px;
+            margin-top: 30px;
+        }
+        
+        .options-section h2 {
+            color: #2d3436;
+            margin-bottom: 20px;
+            text-align: center;
+        }
+        
+        .option {
+            background: white;
+            border-radius: 10px;
+            padding: 15px;
+            margin-bottom: 15px;
+            border-left: 4px solid #667eea;
+        }
+        
+        .option h4 {
+            color: #667eea;
+            margin-bottom: 8px;
+        }
+        
+        .option p {
+            color: #636e72;
+            margin: 0;
+            line-height: 1.5;
+        }
+        
+        .demo-note {
+            background: #fff3cd;
+            border: 1px solid #ffeaa7;
+            border-radius: 10px;
+            padding: 15px;
+            margin-bottom: 20px;
+            text-align: center;
+            color: #856404;
+        }
+        
+        .controls-info {
+            background: #d1ecf1;
+            border-radius: 10px;
+            padding: 15px;
+            margin-top: 15px;
+        }
+        
+        .controls-info h4 {
+            color: #0c5460;
+            margin-bottom: 10px;
+        }
+        
+        .controls-info ul {
+            color: #0c5460;
+            margin: 0;
+            padding-left: 20px;
+        }
+        
+        .controls-info li {
+            margin-bottom: 5px;
+        }
+    </style>
+</head>
+<body>
+    <div class="container">
+        <h1>🎵 My Favorite Music Player 🎵</h1>
+        
+        <div class="demo-note">
+            <strong>Note:</strong> This is a demo audio player. To use your own music, see the options below!
+        </div>
+        
+        <div class="music-player">
+            <div class="song-info">
+                <div class="song-title">🎶 Matushka Ultrafunk</div>
+                <div class="artist-name">SambalpuriStar.In</div>
+            </div>
+            
+            <div class="audio-container">
+                <!-- Your Downloaded Music File (Multiple path options) -->
+                <audio controls autoplay loop>
+                    <source src="Matushka Ultrafunk-(SambalpuriStar.In).mp3" type="audio/mpeg">
+                    <source src="/Users/nbharath/Downloads/Matushka Ultrafunk-(SambalpuriStar.In).mp3" type="audio/mpeg">
+                    <source src="file:///Users/nbharath/Downloads/Matushka Ultrafunk-(SambalpuriStar.In).mp3" type="audio/mpeg">
+                    Your browser does not support the audio element.
+                </audio>
+                
+                <p style="margin-top: 10px; color: #666; font-size: 14px;">
+                    <strong>💡 Tip:</strong> If the audio doesn't play, copy your music file to the same folder as this HTML file for best results.
+                </p>
+            </div>
+            
+            <div class="controls-info">
+                <h4>🎛️ Audio Player Features:</h4>
+                <ul>
+                    <li><strong>Controls:</strong> Play, pause, volume, and progress bar</li>
+                    <li><strong>Autoplay:</strong> Music starts automatically when page loads</li>
+                    <li><strong>Loop:</strong> Song repeats continuously</li>
+                </ul>
+            </div>
+        </div>
+        
+        <div class="song-description">
+            <h3>💝 Why I Love This Song</h3>
+            <p>
+                Matushka Ultrafunk has an incredible beat that instantly gets me moving! The fusion of 
+                traditional Sambalpuri sounds with modern funk creates such a unique and energetic vibe. 
+                The rhythm is absolutely infectious and the cultural blend makes it so special. Every time 
+                I listen to it, I feel connected to the rich musical heritage while enjoying the contemporary 
+                twist. It's the perfect soundtrack for both relaxation and celebration!
+            </p>
+        </div>
+        
+        <div class="options-section">
+            <h2>🎵 How to Add Your Own Music</h2>
+            
+            <div class="option">
+                <h4>Option 1: Direct MP3 Links (Ready to Use)</h4>
+                <p>
+                    • <strong>Archive.org:</strong> archive.org/details/audio (Free music collection)<br>
+                    • <strong>Freesound:</strong> freesound.org (Sound effects and music)<br>
+                    • <strong>Internet Archive:</strong> Direct MP3 links available<br>
+                    • <strong>Sample MP3:</strong> You can use this test link:<br>
+                    &nbsp;&nbsp;<code>https://www.soundjay.com/misc/sounds-effects/beep-08.mp3</code>
+                </p>
+            </div>
+            
+            <div class="option">
+                <h4>Option 2: YouTube to MP3 Conversion</h4>
+                <p>
+                    1. Copy your YouTube video URL<br>
+                    2. Go to ytmp3.cc or y2mate.com<br>
+                    3. Paste the URL and download MP3<br>
+                    4. Save the file in your project folder<br>
+                    5. Update the src in the audio tag
+                </p>
+            </div>
+            
+            <div class="option">
+                <h4>Option 2: Use Your Own MP3 Files</h4>
+                <p>
+                    1. Place your MP3 file in the same folder as this HTML file<br>
+                    2. Replace "your-favorite-song.mp3" with your actual filename<br>
+                    3. Make sure the file name matches exactly (including spaces and case)
+                </p>
+            </div>
+            
+            <div class="option">
+                <h4>Option 3: Use Streaming URLs</h4>
+                <p>
+                    You can use direct links to MP3 files hosted online. Just replace the src 
+                    attribute with the direct URL to the audio file.
+                </p>
+            </div>
+            
+            <div class="option">
+                <h4>Option 4: Create Your Own Audio</h4>
+                <p>
+                    • Record yourself speaking/singing<br>
+                    • Use apps like GarageBand (Mac) or Audacity (Free)<br>
+                    • Convert any audio format to MP3 using online converters
+                </p>
+            </div>
+        </div>
+    </div>
+</body>
+</html>

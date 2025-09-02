@@ -1,0 +1,242 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>My Favorite Video Player</title>
+    <style>
+        body {
+            font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
+            margin: 0;
+            padding: 20px;
+            background: linear-gradient(135deg, #2c3e50 0%, #34495e 100%);
+            min-height: 100vh;
+            color: #333;
+        }
+        
+        .container {
+            max-width: 900px;
+            margin: 0 auto;
+            background: white;
+            border-radius: 20px;
+            padding: 40px;
+            box-shadow: 0 15px 35px rgba(0,0,0,0.3);
+        }
+        
+        h1 {
+            text-align: center;
+            color: #2d3436;
+            margin-bottom: 30px;
+            font-size: 2.5em;
+            background: linear-gradient(45deg, #2c3e50, #34495e);
+            -webkit-background-clip: text;
+            -webkit-text-fill-color: transparent;
+            background-clip: text;
+        }
+        
+        .video-player {
+            background: #f8f9fa;
+            border-radius: 15px;
+            padding: 30px;
+            text-align: center;
+            box-shadow: 0 8px 20px rgba(0,0,0,0.1);
+            margin-bottom: 30px;
+        }
+        
+        .video-info {
+            margin-bottom: 25px;
+        }
+        
+        .video-title {
+            font-size: 2em;
+            font-weight: bold;
+            color: #2d3436;
+            margin-bottom: 5px;
+        }
+        
+        .artist-name {
+            font-size: 1.3em;
+            color: #636e72;
+            margin-bottom: 20px;
+        }
+        
+        .video-container {
+            margin: 20px 0;
+            border-radius: 15px;
+            overflow: hidden;
+            box-shadow: 0 10px 25px rgba(0,0,0,0.2);
+        }
+        
+        video {
+            width: 100%;
+            max-width: 800px;
+            height: auto;
+            border-radius: 15px;
+            outline: none;
+        }
+        
+        .video-description {
+            background: linear-gradient(45deg, #2c3e5020, #34495e20);
+            border-radius: 15px;
+            padding: 25px;
+            margin-top: 30px;
+            border-left: 5px solid #2c3e50;
+        }
+        
+        .video-description h3 {
+            color: #2d3436;
+            margin-bottom: 15px;
+            font-size: 1.4em;
+        }
+        
+        .video-description p {
+            color: #636e72;
+            line-height: 1.7;
+            font-size: 1.1em;
+        }
+        
+        .features-info {
+            background: #d1ecf1;
+            border-radius: 10px;
+            padding: 20px;
+            margin-top: 20px;
+        }
+        
+        .features-info h4 {
+            color: #0c5460;
+            margin-bottom: 15px;
+            font-size: 1.2em;
+        }
+        
+        .features-info ul {
+            color: #0c5460;
+            margin: 0;
+            padding-left: 20px;
+        }
+        
+        .features-info li {
+            margin-bottom: 8px;
+            line-height: 1.5;
+        }
+        
+        .demo-note {
+            background: #fff3cd;
+            border: 1px solid #ffeaa7;
+            border-radius: 10px;
+            padding: 15px;
+            margin-bottom: 20px;
+            text-align: center;
+            color: #856404;
+        }
+        
+        .file-info {
+            background: #e8f5e8;
+            border-radius: 10px;
+            padding: 15px;
+            margin-bottom: 20px;
+            color: #2e7d32;
+            text-align: center;
+        }
+        
+        .file-info strong {
+            color: #1b5e20;
+        }
+        
+        @media (max-width: 768px) {
+            .container {
+                padding: 20px;
+                margin: 10px;
+            }
+            
+            h1 {
+                font-size: 2em;
+            }
+            
+            .video-player {
+                padding: 20px;
+            }
+            
+            .video-title {
+                font-size: 1.5em;
+            }
+        }
+    </style>
+</head>
+<body>
+    <div class="container">
+        <h1>🎬 My Favorite Video Player 🎬</h1>
+        
+        <div class="file-info">
+            <strong>📁 Video File:</strong> Eminem-Mockingbird-Official-Music-Video.mp4
+        </div>
+        
+        <div class="video-player">
+            <div class="video-info">
+                <div class="video-title">🎵 Mockingbird</div>
+                <div class="artist-name">Eminem - Official Music Video</div>
+            </div>
+            
+            <div class="video-container">
+                <!-- Video Player with all required attributes -->
+                <video controls muted poster="mockingbird-poster.jpg">
+                    <source src="Eminem-Mockingbird-Official-Music-Video.mp4" type="video/mp4">
+                    <source src="/Users/nbharath/Downloads/Eminem-Mockingbird-Official-Music-Video.mp4" type="video/mp4">
+                    <source src="file:///Users/nbharath/Downloads/Eminem-Mockingbird-Official-Music-Video.mp4" type="video/mp4">
+                    Your browser does not support the video tag.
+                </video>
+            </div>
+            
+            <div class="features-info">
+                <h4>🎛️ Video Player Features:</h4>
+                <ul>
+                    <li><strong>Controls:</strong> Play, pause, volume, fullscreen, and progress bar</li>
+                    <li><strong>Muted:</strong> Video starts muted (click unmute to hear audio)</li>
+                    <li><strong>Poster:</strong> Shows thumbnail before video plays</li>
+                    <li><strong>Responsive:</strong> Adapts to different screen sizes</li>
+                </ul>
+            </div>
+        </div>
+        
+        <div class="video-description">
+            <h3>💝 This is one of my favorite videos because...</h3>
+            <p>
+                Eminem's "Mockingbird" is incredibly powerful and emotionally touching. The video perfectly 
+                captures the raw emotion and vulnerability of Marshall as he opens up about his struggles 
+                as a father and the challenges his daughter faced growing up. The lyrics are deeply personal 
+                and heartfelt, showing a different side of Eminem - not just the fierce rapper, but a loving 
+                father who would do anything for his child.
+            </p>
+            <p>
+                What makes this video special is how it combines stunning visuals with meaningful storytelling. 
+                The way he promises to give his daughter the world, even if he has to struggle to provide it, 
+                resonates with anyone who understands sacrifice and unconditional love. The metaphor of the 
+                mockingbird is beautifully woven throughout, representing hope, dreams, and the promise of 
+                better days. It's not just a song - it's a father's letter to his child, and that makes it 
+                timeless and deeply moving.
+            </p>
+        </div>
+        
+        <div class="demo-note">
+            <strong>💡 Note:</strong> If the video doesn't load, make sure the file is in the same folder as this HTML file, 
+            or copy it from Downloads to the profile folder for best compatibility.
+        </div>
+    </div>
+
+    <script>
+        // Optional: Log when video events occur
+        const video = document.querySelector('video');
+        
+        video.addEventListener('loadstart', () => {
+            console.log('Video loading started');
+        });
+        
+        video.addEventListener('canplay', () => {
+            console.log('Video can start playing');
+        });
+        
+        video.addEventListener('error', () => {
+            console.log('Video loading error - check file path');
+        });
+    </script>
+</body>
+</html>

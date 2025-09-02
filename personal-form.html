@@ -1,0 +1,364 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Comprehensive Personal Information Form</title>
+    <style>
+        body {
+            font-family: Arial, sans-serif;
+            max-width: 800px;
+            margin: 30px auto;
+            padding: 20px;
+            background-color: #f5f5f5;
+        }
+        
+        .form-container {
+            background: white;
+            padding: 40px;
+            border-radius: 15px;
+            box-shadow: 0 6px 12px rgba(0,0,0,0.1);
+        }
+        
+        h1 {
+            text-align: center;
+            color: #333;
+            margin-bottom: 40px;
+            font-size: 2.2em;
+        }
+        
+        fieldset {
+            border: 2px solid #ddd;
+            border-radius: 10px;
+            padding: 20px;
+            margin-bottom: 25px;
+            background: #fafafa;
+        }
+        
+        legend {
+            font-weight: bold;
+            color: #333;
+            padding: 0 15px;
+            font-size: 1.2em;
+            background: white;
+            border-radius: 5px;
+        }
+        
+        .form-group {
+            margin-bottom: 20px;
+        }
+        
+        label {
+            display: block;
+            margin-bottom: 5px;
+            font-weight: bold;
+            color: #555;
+        }
+        
+        input[type="text"],
+        input[type="email"],
+        input[type="password"],
+        input[type="date"],
+        input[type="tel"],
+        input[type="url"],
+        input[type="time"],
+        input[type="file"],
+        input[type="color"],
+        select,
+        textarea {
+            width: 100%;
+            padding: 12px;
+            border: 2px solid #ddd;
+            border-radius: 5px;
+            font-size: 16px;
+            box-sizing: border-box;
+            font-family: Arial, sans-serif;
+        }
+        
+        input:focus,
+        select:focus,
+        textarea:focus {
+            outline: none;
+            border-color: #4CAF50;
+        }
+        
+        textarea {
+            resize: vertical;
+            min-height: 100px;
+        }
+        
+        .radio-group,
+        .checkbox-group {
+            display: flex;
+            flex-wrap: wrap;
+            gap: 15px;
+            margin-top: 5px;
+        }
+        
+        .radio-option,
+        .checkbox-option {
+            display: flex;
+            align-items: center;
+        }
+        
+        input[type="radio"],
+        input[type="checkbox"] {
+            margin-right: 8px;
+            transform: scale(1.2);
+        }
+        
+        .range-container {
+            margin-top: 10px;
+        }
+        
+        input[type="range"] {
+            width: 100%;
+            margin: 10px 0;
+        }
+        
+        .range-labels {
+            display: flex;
+            justify-content: space-between;
+            font-size: 14px;
+            color: #666;
+            margin-top: 5px;
+        }
+        
+        .range-value {
+            text-align: center;
+            font-weight: bold;
+            color: #4CAF50;
+            font-size: 18px;
+            margin-top: 5px;
+        }
+        
+        .button-group {
+            display: flex;
+            gap: 15px;
+            margin-top: 30px;
+        }
+        
+        .submit-btn,
+        .reset-btn {
+            flex: 1;
+            padding: 15px;
+            border: none;
+            border-radius: 5px;
+            font-size: 16px;
+            cursor: pointer;
+            font-weight: bold;
+        }
+        
+        .submit-btn {
+            background-color: #4CAF50;
+            color: white;
+        }
+        
+        .submit-btn:hover {
+            background-color: #45a049;
+        }
+        
+        .reset-btn {
+            background-color: #f44336;
+            color: white;
+        }
+        
+        .reset-btn:hover {
+            background-color: #da190b;
+        }
+        
+        @media (max-width: 600px) {
+            .radio-group,
+            .checkbox-group {
+                flex-direction: column;
+                gap: 10px;
+            }
+            
+            .button-group {
+                flex-direction: column;
+            }
+        }
+    </style>
+</head>
+<body>
+    <div class="form-container">
+        <h1>Comprehensive Personal Information Form</h1>
+        
+        <form>
+            <!-- Basic Information Fieldset -->
+            <fieldset>
+                <legend>Basic Information</legend>
+                
+                <!-- Full Name -->
+                <div class="form-group">
+                    <label for="fullName">Full Name:</label>
+                    <input type="text" id="fullName" name="fullName" placeholder="Enter your full name">
+                </div>
+                
+                <!-- Email Address -->
+                <div class="form-group">
+                    <label for="email">Email Address:</label>
+                    <input type="email" id="email" name="email" placeholder="Enter your email address">
+                </div>
+                
+                <!-- Password -->
+                <div class="form-group">
+                    <label for="password">Password:</label>
+                    <input type="password" id="password" name="password" placeholder="Enter your password">
+                </div>
+                
+                <!-- Birthdate -->
+                <div class="form-group">
+                    <label for="birthdate">Birthdate:</label>
+                    <input type="date" id="birthdate" name="birthdate">
+                </div>
+                
+                <!-- Gender -->
+                <div class="form-group">
+                    <label>Gender:</label>
+                    <div class="radio-group">
+                        <div class="radio-option">
+                            <input type="radio" id="male" name="gender" value="male">
+                            <label for="male">Male</label>
+                        </div>
+                        <div class="radio-option">
+                            <input type="radio" id="female" name="gender" value="female">
+                            <label for="female">Female</label>
+                        </div>
+                        <div class="radio-option">
+                            <input type="radio" id="other" name="gender" value="other">
+                            <label for="other">Other</label>
+                        </div>
+                    </div>
+                </div>
+            </fieldset>
+
+            <!-- Contact Information Fieldset -->
+            <fieldset>
+                <legend>Contact Information</legend>
+                
+                <!-- Phone Number -->
+                <div class="form-group">
+                    <label for="phone">Phone Number:</label>
+                    <input type="tel" id="phone" name="phone" placeholder="Enter your phone number">
+                </div>
+                
+                <!-- Website/Portfolio Link -->
+                <div class="form-group">
+                    <label for="website">Website / Portfolio Link:</label>
+                    <input type="url" id="website" name="website" placeholder="https://your-website.com">
+                </div>
+                
+                <!-- Preferred Time for Contact -->
+                <div class="form-group">
+                    <label for="contactTime">Preferred Time for Contact:</label>
+                    <input type="time" id="contactTime" name="contactTime">
+                </div>
+            </fieldset>
+
+            <!-- Personal Preferences Fieldset -->
+            <fieldset>
+                <legend>Personal Preferences</legend>
+                
+                <!-- Hobbies -->
+                <div class="form-group">
+                    <label>Hobbies (Select all that apply):</label>
+                    <div class="checkbox-group">
+                        <div class="checkbox-option">
+                            <input type="checkbox" id="reading" name="hobbies" value="reading">
+                            <label for="reading">Reading</label>
+                        </div>
+                        <div class="checkbox-option">
+                            <input type="checkbox" id="gaming" name="hobbies" value="gaming">
+                            <label for="gaming">Gaming</label>
+                        </div>
+                        <div class="checkbox-option">
+                            <input type="checkbox" id="music" name="hobbies" value="music">
+                            <label for="music">Music</label>
+                        </div>
+                        <div class="checkbox-option">
+                            <input type="checkbox" id="sports" name="hobbies" value="sports">
+                            <label for="sports">Sports</label>
+                        </div>
+                        <div class="checkbox-option">
+                            <input type="checkbox" id="travel" name="hobbies" value="travel">
+                            <label for="travel">Traveling</label>
+                        </div>
+                        <div class="checkbox-option">
+                            <input type="checkbox" id="cooking" name="hobbies" value="cooking">
+                            <label for="cooking">Cooking</label>
+                        </div>
+                    </div>
+                </div>
+                
+                <!-- Favorite Color -->
+                <div class="form-group">
+                    <label for="favoriteColor">Favorite Color:</label>
+                    <input type="color" id="favoriteColor" name="favoriteColor" value="#4CAF50">
+                </div>
+                
+                <!-- Range of Satisfaction -->
+                <div class="form-group">
+                    <label for="satisfaction">Range of Satisfaction (1-10):</label>
+                    <div class="range-container">
+                        <input type="range" id="satisfaction" name="satisfaction" min="1" max="10" value="5" oninput="updateSatisfactionValue(this.value)">
+                        <div class="range-labels">
+                            <span>1 (Very Unsatisfied)</span>
+                            <span>10 (Very Satisfied)</span>
+                        </div>
+                        <div class="range-value" id="satisfactionValue">5</div>
+                    </div>
+                </div>
+            </fieldset>
+
+            <!-- Academic Information Fieldset -->
+            <fieldset>
+                <legend>Academic Information</legend>
+                
+                <!-- Department/Branch -->
+                <div class="form-group">
+                    <label for="department">Department / Branch:</label>
+                    <select id="department" name="department">
+                        <option value="">Select your department</option>
+                        <option value="computer-science">Computer Science</option>
+                        <option value="information-technology">Information Technology</option>
+                        <option value="electronics">Electronics and Communication</option>
+                        <option value="mechanical">Mechanical Engineering</option>
+                        <option value="civil">Civil Engineering</option>
+                        <option value="electrical">Electrical Engineering</option>
+                    </select>
+                </div>
+            </fieldset>
+
+            <!-- Additional Information Fieldset -->
+            <fieldset>
+                <legend>Additional Information</legend>
+                
+                <!-- Upload Profile Photo -->
+                <div class="form-group">
+                    <label for="profilePhoto">Upload Profile Photo:</label>
+                    <input type="file" id="profilePhoto" name="profilePhoto" accept="image/*">
+                </div>
+                
+                <!-- Short Bio -->
+                <div class="form-group">
+                    <label for="bio">Short Bio / About Yourself:</label>
+                    <textarea id="bio" name="bio" placeholder="Tell us about yourself..."></textarea>
+                </div>
+            </fieldset>
+            
+            <!-- Submit and Reset Buttons -->
+            <div class="button-group">
+                <button type="submit" class="submit-btn">Submit</button>
+                <button type="reset" class="reset-btn">Reset</button>
+            </div>
+        </form>
+    </div>
+
+    <script>
+        function updateSatisfactionValue(value) {
+            document.getElementById('satisfactionValue').textContent = value;
+        }
+    </script>
+</body>
+</html>

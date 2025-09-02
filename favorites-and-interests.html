@@ -1,0 +1,262 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>My Favorites & Interests</title>
+    <style>
+        body {
+            font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
+            margin: 0;
+            padding: 20px;
+            background: linear-gradient(135deg, #74b9ff 0%, #0984e3 100%);
+            min-height: 100vh;
+            color: #333;
+        }
+        
+        .container {
+            max-width: 1000px;
+            margin: 0 auto;
+            background: white;
+            border-radius: 20px;
+            padding: 40px;
+            box-shadow: 0 15px 35px rgba(0,0,0,0.2);
+        }
+        
+        h1 {
+            text-align: center;
+            color: #2d3436;
+            margin-bottom: 50px;
+            font-size: 2.8em;
+            text-shadow: 2px 2px 4px rgba(0,0,0,0.1);
+            background: linear-gradient(45deg, #74b9ff, #0984e3);
+            -webkit-background-clip: text;
+            -webkit-text-fill-color: transparent;
+            background-clip: text;
+        }
+        
+        .section {
+            margin-bottom: 50px;
+            background: #f8f9fa;
+            border-radius: 15px;
+            padding: 30px;
+            box-shadow: 0 5px 15px rgba(0,0,0,0.08);
+        }
+        
+        .section h2 {
+            color: #2d3436;
+            font-size: 1.8em;
+            margin-bottom: 25px;
+            text-align: center;
+            position: relative;
+        }
+        
+        .section h2::after {
+            content: '';
+            display: block;
+            width: 50px;
+            height: 3px;
+            background: linear-gradient(45deg, #74b9ff, #0984e3);
+            margin: 10px auto;
+            border-radius: 2px;
+        }
+        
+        /* Ordered List Styling */
+        .movies-list {
+            counter-reset: movie-counter;
+            list-style: none;
+            padding-left: 0;
+        }
+        
+        .movies-list li {
+            counter-increment: movie-counter;
+            margin-bottom: 15px;
+            padding: 15px 20px;
+            background: white;
+            border-radius: 10px;
+            box-shadow: 0 3px 10px rgba(0,0,0,0.1);
+            position: relative;
+            padding-left: 60px;
+            transition: transform 0.3s ease;
+        }
+        
+        .movies-list li:hover {
+            transform: translateX(10px);
+        }
+        
+        .movies-list li::before {
+            content: counter(movie-counter);
+            position: absolute;
+            left: 20px;
+            top: 50%;
+            transform: translateY(-50%);
+            background: linear-gradient(45deg, #74b9ff, #0984e3);
+            color: white;
+            width: 30px;
+            height: 30px;
+            border-radius: 50%;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            font-weight: bold;
+            font-size: 14px;
+        }
+        
+        /* Unordered List Styling */
+        .food-list {
+            list-style: none;
+            padding-left: 0;
+        }
+        
+        .food-list li {
+            margin-bottom: 15px;
+            padding: 15px 20px;
+            background: white;
+            border-radius: 10px;
+            box-shadow: 0 3px 10px rgba(0,0,0,0.1);
+            position: relative;
+            padding-left: 50px;
+            transition: transform 0.3s ease;
+        }
+        
+        .food-list li:hover {
+            transform: scale(1.02);
+        }
+        
+        .food-list li::before {
+            content: '🍽️';
+            position: absolute;
+            left: 20px;
+            top: 50%;
+            transform: translateY(-50%);
+            font-size: 20px;
+        }
+        
+        /* Description List Styling */
+        .interests-list {
+            background: white;
+            border-radius: 10px;
+            padding: 20px;
+            box-shadow: 0 3px 10px rgba(0,0,0,0.1);
+        }
+        
+        .interests-list dt {
+            font-weight: bold;
+            font-size: 1.3em;
+            color: #0984e3;
+            margin-top: 25px;
+            margin-bottom: 10px;
+            padding: 10px 15px;
+            background: linear-gradient(45deg, #74b9ff20, #0984e320);
+            border-radius: 8px;
+            border-left: 4px solid #0984e3;
+        }
+        
+        .interests-list dt:first-child {
+            margin-top: 0;
+        }
+        
+        .interests-list dd {
+            margin-left: 20px;
+            margin-bottom: 15px;
+            color: #636e72;
+            line-height: 1.6;
+            padding: 10px 15px;
+            background: #f1f2f6;
+            border-radius: 8px;
+        }
+        
+        .emoji {
+            font-size: 1.5em;
+            margin-right: 10px;
+        }
+        
+        .intro {
+            text-align: center;
+            margin-bottom: 40px;
+            padding: 20px;
+            background: linear-gradient(45deg, #74b9ff20, #0984e320);
+            border-radius: 10px;
+            border: 2px solid #74b9ff40;
+        }
+        
+        .intro p {
+            font-size: 1.1em;
+            color: #2d3436;
+            margin: 0;
+            line-height: 1.6;
+        }
+        
+        @media (max-width: 768px) {
+            .container {
+                padding: 20px;
+            }
+            
+            h1 {
+                font-size: 2.2em;
+            }
+            
+            .section {
+                padding: 20px;
+            }
+            
+            .movies-list li,
+            .food-list li {
+                padding: 12px 15px;
+                padding-left: 50px;
+            }
+        }
+    </style>
+</head>
+<body>
+    <div class="container">
+        <h1>🌟 My Favorites & Interests 🌟</h1>
+        
+        <div class="intro">
+            <p>Welcome to my personal favorites page! Here you'll discover my top entertainment choices, favorite foods, and the hobbies that make me who I am. Each list reflects my personality and the things I'm passionate about.</p>
+        </div>
+        
+        <!-- Top 5 Movies/Web Series - Ordered List -->
+        <div class="section">
+            <h2><span class="emoji">🎬</span>Top 5 Favorite Movies & Web Series</h2>
+            <ol class="movies-list">
+                <li><strong>The Dark Knight (2008)</strong> - Christopher Nolan's masterpiece featuring Heath Ledger's iconic Joker performance</li>
+                <li><strong>Breaking Bad (TV Series)</strong> - Bryan Cranston's incredible transformation from teacher to drug kingpin</li>
+                <li><strong>Inception (2010)</strong> - Mind-bending sci-fi thriller that explores dreams within dreams</li>
+                <li><strong>Stranger Things (TV Series)</strong> - Nostalgic 80s supernatural adventure with lovable characters</li>
+                <li><strong>Interstellar (2014)</strong> - Epic space odyssey that combines science with emotional storytelling</li>
+            </ol>
+        </div>
+        
+        <!-- Top 5 Favorite Foods - Unordered List -->
+        <div class="section">
+            <h2><span class="emoji">🍕</span>Top 5 Favorite Food Items</h2>
+            <ul class="food-list">
+                <li><strong>Pizza Margherita</strong> - Classic Italian pizza with fresh basil, mozzarella, and tomato sauce</li>
+                <li><strong>Biryani</strong> - Aromatic Indian rice dish with perfectly spiced meat and fragrant basmati rice</li>
+                <li><strong>Chocolate Lava Cake</strong> - Decadent dessert with molten chocolate center that melts in your mouth</li>
+                <li><strong>Ramen Noodles</strong> - Comforting Japanese soup with rich broth, noodles, and various toppings</li>
+                <li><strong>Tacos</strong> - Mexican street food with soft tortillas filled with seasoned meat and fresh toppings</li>
+            </ul>
+        </div>
+        
+        <!-- Personal Interests/Hobbies - Description List -->
+        <div class="section">
+            <h2><span class="emoji">🎯</span>Personal Interests & Hobbies</h2>
+            <dl class="interests-list">
+                <dt><span class="emoji">🎮</span>Gaming</dt>
+                <dd>I love exploring virtual worlds and challenging myself with different game genres. From strategy games that test my tactical thinking to adventure games that tell compelling stories, gaming provides both entertainment and mental stimulation. My favorite platforms include PC and console gaming, and I enjoy both single-player campaigns and multiplayer experiences with friends.</dd>
+                
+                <dt><span class="emoji">✈️</span>Traveling</dt>
+                <dd>Discovering new places and experiencing different cultures is one of my greatest passions. Whether it's exploring bustling cities, relaxing on pristine beaches, or hiking through scenic mountains, travel broadens my perspective and creates lasting memories. I enjoy planning trips, trying local cuisines, and meeting people from diverse backgrounds during my adventures.</dd>
+                
+                <dt><span class="emoji">📚</span>Reading</dt>
+                <dd>Books are my gateway to knowledge and imagination. I enjoy a wide range of genres including science fiction, mystery, biography, and technology. Reading not only entertains me but also helps me learn new concepts, improve my vocabulary, and understand different perspectives on life. I prefer both physical books and e-books, depending on the situation.</dd>
+                
+                <dt><span class="emoji">💻</span>Programming</dt>
+                <dd>Coding is both my profession and passion. I love solving complex problems, building applications, and learning new programming languages and frameworks. The satisfaction of creating something functional from scratch and the continuous learning aspect of technology keeps me motivated. I enjoy working on personal projects and contributing to open-source communities.</dd>
+            </dl>
+        </div>
+    </div>
+</body>
+</html>

@@ -1,0 +1,166 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>My Photo Gallery</title>
+    <style>
+        body {
+            font-family: Arial, sans-serif;
+            margin: 0;
+            padding: 20px;
+            background: linear-gradient(135deg, #667eea 0%, #764ba2 100%);
+            min-height: 100vh;
+        }
+        
+        .container {
+            max-width: 1200px;
+            margin: 0 auto;
+            background: white;
+            border-radius: 15px;
+            padding: 30px;
+            box-shadow: 0 10px 30px rgba(0,0,0,0.2);
+        }
+        
+        h1 {
+            text-align: center;
+            color: #333;
+            margin-bottom: 40px;
+            font-size: 2.5em;
+            text-shadow: 2px 2px 4px rgba(0,0,0,0.1);
+        }
+        
+        .gallery {
+            display: grid;
+            grid-template-columns: repeat(auto-fit, minmax(350px, 1fr));
+            gap: 30px;
+            margin-top: 20px;
+        }
+        
+        .photo-section {
+            background: #f8f9fa;
+            border-radius: 10px;
+            padding: 20px;
+            text-align: center;
+            box-shadow: 0 5px 15px rgba(0,0,0,0.1);
+            transition: transform 0.3s ease, box-shadow 0.3s ease;
+        }
+        
+        .photo-section:hover {
+            transform: translateY(-5px);
+            box-shadow: 0 8px 25px rgba(0,0,0,0.15);
+        }
+        
+        .photo-section h2 {
+            color: #555;
+            margin-bottom: 15px;
+            font-size: 1.5em;
+        }
+        
+        .photo-section img {
+            width: 100%;
+            max-width: 300px;
+            height: 250px;
+            object-fit: cover;
+            border-radius: 8px;
+            border: 3px solid #ddd;
+            transition: border-color 0.3s ease;
+        }
+        
+        .photo-section img:hover {
+            border-color: #667eea;
+        }
+        
+        .photo-section p {
+            margin-top: 15px;
+            color: #666;
+            line-height: 1.6;
+        }
+        
+        .link-image {
+            cursor: pointer;
+            position: relative;
+            display: inline-block;
+        }
+        
+        .link-image::after {
+            content: "🔗 Click to visit";
+            position: absolute;
+            bottom: -25px;
+            left: 50%;
+            transform: translateX(-50%);
+            background: #667eea;
+            color: white;
+            padding: 5px 10px;
+            border-radius: 5px;
+            font-size: 12px;
+            opacity: 0;
+            transition: opacity 0.3s ease;
+        }
+        
+        .link-image:hover::after {
+            opacity: 1;
+        }
+        
+        .description {
+            background: #e8f4fd;
+            border-left: 4px solid #667eea;
+            padding: 15px;
+            margin: 20px 0;
+            border-radius: 0 5px 5px 0;
+        }
+        
+        @media (max-width: 768px) {
+            .gallery {
+                grid-template-columns: 1fr;
+            }
+            
+            h1 {
+                font-size: 2em;
+            }
+            
+            .container {
+                padding: 20px;
+            }
+        }
+    </style>
+</head>
+<body>
+    <div class="container">
+        <h1>🌟 My Photo Gallery 🌟</h1>
+        
+        <div class="description">
+            <p><strong>Welcome to my personal photo gallery!</strong> Here you'll find images that represent different aspects of my interests and passions. Each image tells a story and reflects something meaningful to me.</p>
+        </div>
+        
+        <div class="gallery">
+            <!-- Nature Photo Section -->
+            <div class="photo-section">
+                <h2>🌿 Nature Beauty</h2>
+                <img src="https://images.unsplash.com/photo-1506905925346-21bda4d32df4?ixlib=rb-4.0.3&ixid=M3wxMjA3fDB8MHxwaG90by1wYWdlfHx8fGVufDB8fHx8fA%3D%3D&auto=format&fit=crop&w=2070&q=80" alt="Beautiful mountain landscape with lake reflection">
+                <p>This stunning mountain landscape captures the serene beauty of nature. The crystal-clear lake reflects the majestic peaks, creating a perfect mirror image that showcases the harmony between earth and sky.</p>
+            </div>
+            
+            <!-- Hobby Photo Section -->
+            <div class="photo-section">
+                <h2>🎵 My Hobby - Music</h2>
+                <img src="https://images.unsplash.com/photo-1493225457124-a3eb161ffa5f?ixlib=rb-4.0.3&ixid=M3wxMjA3fDB8MHxwaG90by1wYWdlfHx8fGVufDB8fHx8fA%3D%3D&auto=format&fit=crop&w=2070&q=80" alt="Acoustic guitar with music sheets">
+                <p>Music is my passion! This image represents my love for playing the guitar and creating melodies. Whether it's strumming acoustic songs or learning new pieces, music brings joy and creativity to my life.</p>
+            </div>
+            
+            <!-- Favorite Website Link Section -->
+            <div class="photo-section">
+                <h2>📱 My Favorite Website</h2>
+                <a href="https://www.youtube.com" target="_blank" class="link-image">
+                    <img src="https://images.unsplash.com/photo-1611162617474-5b21e879e113?ixlib=rb-4.0.3&ixid=M3wxMjA3fDB8MHxwaG90by1wYWdlfHx8fGVufDB8fHx8fA%3D%3D&auto=format&fit=crop&w=2074&q=80" alt="YouTube logo and video content">
+                </a>
+                <p>YouTube is my go-to platform for entertainment, learning, and discovery. From music tutorials to educational content, it's an endless source of inspiration and knowledge. Click the image to visit YouTube!</p>
+            </div>
+        </div>
+        
+        <div class="description" style="margin-top: 40px;">
+            <p><strong>About this gallery:</strong> Each image has been carefully selected to represent different facets of my personality and interests. The nature photo reminds me of the beauty in our world, the music image reflects my creative side, and the YouTube link connects to my favorite digital destination.</p>
+        </div>
+    </div>
+</body>
+</html>

@@ -1,0 +1,245 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Academic Record - N.BHARATH</title>
+    <style>
+        body {
+            font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
+            margin: 0;
+            padding: 20px;
+            background: linear-gradient(135deg, #667eea 0%, #764ba2 100%);
+            min-height: 100vh;
+            color: #333;
+        }
+        
+        .container {
+            max-width: 900px;
+            margin: 0 auto;
+            background: white;
+            border-radius: 20px;
+            padding: 40px;
+            box-shadow: 0 15px 35px rgba(0,0,0,0.2);
+        }
+        
+        h1 {
+            text-align: center;
+            color: #2d3436;
+            margin-bottom: 40px;
+            font-size: 2.5em;
+            text-shadow: 2px 2px 4px rgba(0,0,0,0.1);
+            background: linear-gradient(45deg, #667eea, #764ba2);
+            -webkit-background-clip: text;
+            -webkit-text-fill-color: transparent;
+            background-clip: text;
+        }
+        
+        .intro {
+            text-align: center;
+            margin-bottom: 30px;
+            padding: 20px;
+            background: linear-gradient(45deg, #667eea20, #764ba220);
+            border-radius: 10px;
+            border: 2px solid #667eea40;
+        }
+        
+        .intro p {
+            font-size: 1.1em;
+            color: #2d3436;
+            margin: 0;
+            line-height: 1.6;
+        }
+        
+        .table-container {
+            background: #f8f9fa;
+            border-radius: 15px;
+            padding: 30px;
+            box-shadow: 0 8px 20px rgba(0,0,0,0.1);
+            overflow-x: auto;
+        }
+        
+        table {
+            width: 100%;
+            border-collapse: collapse;
+            background: white;
+            border-radius: 12px;
+            overflow: hidden;
+            box-shadow: 0 5px 15px rgba(0,0,0,0.08);
+        }
+        
+        caption {
+            font-size: 1.8em;
+            font-weight: bold;
+            color: #2d3436;
+            margin-bottom: 20px;
+            padding: 15px;
+            background: linear-gradient(45deg, #667eea, #764ba2);
+            color: white;
+            border-radius: 10px 10px 0 0;
+            text-shadow: 1px 1px 2px rgba(0,0,0,0.3);
+        }
+        
+        th {
+            background: linear-gradient(45deg, #667eea, #764ba2);
+            color: white;
+            padding: 18px 15px;
+            text-align: center;
+            font-weight: bold;
+            font-size: 1.1em;
+            text-transform: uppercase;
+            letter-spacing: 1px;
+            border-bottom: 3px solid #5a6fd8;
+        }
+        
+        td {
+            padding: 15px;
+            text-align: center;
+            border-bottom: 1px solid #e9ecef;
+            font-size: 1.05em;
+            transition: background-color 0.3s ease;
+        }
+        
+        tr:nth-child(even) {
+            background-color: #f8f9fa;
+        }
+        
+        tr:hover {
+            background-color: #e3f2fd;
+            transform: scale(1.01);
+            transition: all 0.3s ease;
+        }
+        
+        .roll-number {
+            font-weight: bold;
+            color: #667eea;
+            font-size: 1.2em;
+        }
+        
+        .student-name {
+            font-weight: bold;
+            color: #2d3436;
+            font-size: 1.1em;
+        }
+        
+        .subject-marks {
+            font-weight: 600;
+            color: #00b894;
+        }
+        
+        .total-marks {
+            font-weight: bold;
+            color: #e17055;
+            font-size: 1.2em;
+            background: linear-gradient(45deg, #00b89420, #e1705520);
+            border-radius: 8px;
+        }
+        
+        .grade-info {
+            margin-top: 30px;
+            padding: 20px;
+            background: linear-gradient(45deg, #00b89420, #e1705520);
+            border-radius: 10px;
+            border-left: 5px solid #00b894;
+        }
+        
+        .grade-info h3 {
+            color: #2d3436;
+            margin-bottom: 15px;
+            font-size: 1.3em;
+        }
+        
+        .grade-info p {
+            color: #636e72;
+            line-height: 1.6;
+            margin: 5px 0;
+        }
+        
+        .performance-badge {
+            display: inline-block;
+            background: linear-gradient(45deg, #00b894, #00a085);
+            color: white;
+            padding: 8px 15px;
+            border-radius: 20px;
+            font-weight: bold;
+            margin-top: 10px;
+            box-shadow: 0 3px 10px rgba(0,184,148,0.3);
+        }
+        
+        @media (max-width: 768px) {
+            .container {
+                padding: 20px;
+            }
+            
+            h1 {
+                font-size: 2em;
+            }
+            
+            .table-container {
+                padding: 15px;
+            }
+            
+            th, td {
+                padding: 10px 8px;
+                font-size: 0.9em;
+            }
+            
+            caption {
+                font-size: 1.4em;
+            }
+        }
+    </style>
+</head>
+<body>
+    <div class="container">
+        <h1>📚 Academic Performance Report 📚</h1>
+        
+        <div class="intro">
+            <p>This academic record showcases excellent performance across core computer science subjects. The table below displays detailed marks for each subject along with the overall performance summary.</p>
+        </div>
+        
+        <div class="table-container">
+            <table>
+                <caption>My Academic Record</caption>
+                <thead>
+                    <tr>
+                        <th>Roll Number</th>
+                        <th>Student Name</th>
+                        <th>FSD<br><small>(Full Stack Development)</small></th>
+                        <th>DS<br><small>(Data Structures)</small></th>
+                        <th>DLD<br><small>(Digital Logic Design)</small></th>
+                        <th>Total Marks</th>
+                    </tr>
+                </thead>
+                <tbody>
+                    <tr>
+                        <td class="roll-number">60</td>
+                        <td class="student-name">N.BHARATH</td>
+                        <td class="subject-marks">95</td>
+                        <td class="subject-marks">92</td>
+                        <td class="subject-marks">98</td>
+                        <td class="total-marks">285</td>
+                    </tr>
+                </tbody>
+            </table>
+        </div>
+        
+        <div class="grade-info">
+            <h3>📊 Performance Analysis</h3>
+            <p><strong>Total Marks:</strong> 285 out of 300 (95% Average)</p>
+            <p><strong>Highest Score:</strong> 98 in Digital Logic Design (DLD)</p>
+            <p><strong>Lowest Score:</strong> 92 in Data Structures (DS)</p>
+            <p><strong>Overall Performance:</strong> Outstanding academic achievement across all subjects</p>
+            
+            <div class="performance-badge">🏆 Excellent Performance - Top Grade</div>
+        </div>
+        
+        <div class="grade-info" style="margin-top: 20px; border-left-color: #667eea;">
+            <h3>📋 Subject Details</h3>
+            <p><strong>FSD (Full Stack Development):</strong> Score: 95/100 - Excellent understanding of web development concepts</p>
+            <p><strong>DS (Data Structures):</strong> Score: 92/100 - Strong grasp of algorithms and data organization</p>
+            <p><strong>DLD (Digital Logic Design):</strong> Score: 98/100 - Outstanding performance in digital systems</p>
+        </div>
+    </div>
+</body>
+</html>
