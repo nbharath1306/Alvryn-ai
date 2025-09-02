@@ -1,0 +1,497 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>About - N. Bharath | Perplexity Campus Partner</title>
+    <link href="https://fonts.googleapis.com/css2?family=Inter:wght@300;400;500;600;700&display=swap" rel="stylesheet">
+    <style>
+        * {
+            margin: 0;
+            padding: 0;
+            box-sizing: border-box;
+        }
+
+        body {
+            font-family: 'Inter', sans-serif;
+            line-height: 1.6;
+            color: #2c3e50;
+            background: #ffffff;
+        }
+
+        .container {
+            max-width: 1200px;
+            margin: 0 auto;
+            padding: 0 20px;
+        }
+
+        /* Header */
+        header {
+            background: #ffffff;
+            box-shadow: 0 2px 20px rgba(0,0,0,0.05);
+            position: sticky;
+            top: 0;
+            z-index: 100;
+        }
+
+        nav {
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+            padding: 1rem 0;
+        }
+
+        .logo {
+            font-size: 1.5rem;
+            font-weight: 700;
+            color: #2c3e50;
+        }
+
+        .nav-links {
+            display: flex;
+            list-style: none;
+            gap: 2rem;
+        }
+
+        .nav-links a {
+            text-decoration: none;
+            color: #2c3e50;
+            font-weight: 500;
+            transition: color 0.3s ease;
+        }
+
+        .nav-links a:hover {
+            color: #3498db;
+        }
+
+        /* About Section */
+        .about {
+            padding: 6rem 0;
+        }
+
+        .about-header {
+            text-align: center;
+            margin-bottom: 5rem;
+        }
+
+        .about-header h1 {
+            font-size: 3rem;
+            font-weight: 700;
+            color: #2c3e50;
+            margin-bottom: 1rem;
+        }
+
+        .about-header p {
+            font-size: 1.2rem;
+            color: #6c757d;
+            max-width: 600px;
+            margin: 0 auto;
+        }
+
+        .about-content {
+            display: grid;
+            grid-template-columns: 1fr 2fr;
+            gap: 4rem;
+            align-items: start;
+        }
+
+        .about-image {
+            text-align: center;
+        }
+
+        .about-image img {
+            width: 300px;
+            height: 300px;
+            border-radius: 50%;
+            object-fit: cover;
+            box-shadow: 0 15px 50px rgba(0,0,0,0.1);
+            border: 5px solid #ffffff;
+        }
+
+        .about-text h2 {
+            font-size: 2rem;
+            font-weight: 600;
+            color: #2c3e50;
+            margin-bottom: 1.5rem;
+        }
+
+        .about-text p {
+            font-size: 1.1rem;
+            color: #6c757d;
+            margin-bottom: 2rem;
+            line-height: 1.8;
+        }
+
+        .highlight-box {
+            background: linear-gradient(135deg, #f8f9fa 0%, #e9ecef 100%);
+            border-left: 4px solid #3498db;
+            padding: 2rem;
+            border-radius: 10px;
+            margin: 2rem 0;
+        }
+
+        .highlight-box h3 {
+            color: #2c3e50;
+            font-size: 1.3rem;
+            margin-bottom: 1rem;
+        }
+
+        .highlight-box p {
+            color: #6c757d;
+            margin-bottom: 0;
+        }
+
+        /* Values Section */
+        .values {
+            padding: 6rem 0;
+            background: linear-gradient(135deg, #f8f9fa 0%, #e9ecef 100%);
+        }
+
+        .values h2 {
+            text-align: center;
+            font-size: 2.5rem;
+            font-weight: 700;
+            color: #2c3e50;
+            margin-bottom: 3rem;
+        }
+
+        .values-grid {
+            display: grid;
+            grid-template-columns: repeat(auto-fit, minmax(300px, 1fr));
+            gap: 2rem;
+        }
+
+        .value-card {
+            background: #ffffff;
+            border-radius: 15px;
+            padding: 2rem;
+            box-shadow: 0 5px 20px rgba(0,0,0,0.08);
+            text-align: center;
+        }
+
+        .value-card h3 {
+            font-size: 1.3rem;
+            color: #2c3e50;
+            margin-bottom: 1rem;
+        }
+
+        .value-card p {
+            color: #6c757d;
+            line-height: 1.7;
+        }
+
+        /* Contact Form */
+        .contact {
+            padding: 6rem 0;
+        }
+
+        .contact h2 {
+            text-align: center;
+            font-size: 2.5rem;
+            font-weight: 700;
+            color: #2c3e50;
+            margin-bottom: 3rem;
+        }
+
+        .contact-form {
+            max-width: 600px;
+            margin: 0 auto;
+            background: #ffffff;
+            padding: 3rem;
+            border-radius: 20px;
+            box-shadow: 0 10px 40px rgba(0,0,0,0.08);
+        }
+
+        .form-group {
+            margin-bottom: 2rem;
+        }
+
+        .form-group label {
+            display: block;
+            margin-bottom: 0.5rem;
+            font-weight: 500;
+            color: #2c3e50;
+        }
+
+        .form-group input,
+        .form-group textarea {
+            width: 100%;
+            padding: 1rem;
+            border: 2px solid #e9ecef;
+            border-radius: 10px;
+            font-size: 1rem;
+            transition: border-color 0.3s ease;
+        }
+
+        .form-group input:focus,
+        .form-group textarea:focus {
+            outline: none;
+            border-color: #3498db;
+        }
+
+        .form-group textarea {
+            height: 120px;
+            resize: vertical;
+        }
+
+        .submit-btn {
+            width: 100%;
+            background: #3498db;
+            color: white;
+            padding: 1rem 2rem;
+            border: none;
+            border-radius: 10px;
+            font-size: 1.1rem;
+            font-weight: 600;
+            cursor: pointer;
+            transition: background 0.3s ease;
+        }
+
+        .submit-btn:hover {
+            background: #2980b9;
+        }
+
+        /* Footer */
+        footer {
+            background: #2c3e50;
+            color: #ffffff;
+            padding: 3rem 0 2rem;
+            text-align: center;
+        }
+
+        .footer-content {
+            margin-bottom: 2rem;
+        }
+
+        .footer-links {
+            display: flex;
+            justify-content: center;
+            gap: 2rem;
+            margin-bottom: 2rem;
+        }
+
+        .footer-links a {
+            color: #ffffff;
+            text-decoration: none;
+            font-weight: 500;
+            transition: color 0.3s ease;
+        }
+
+        .footer-links a:hover {
+            color: #3498db;
+        }
+
+        .social-links {
+            display: flex;
+            justify-content: center;
+            gap: 1rem;
+            margin-bottom: 2rem;
+        }
+
+        .social-links a {
+            display: inline-block;
+            width: 50px;
+            height: 50px;
+            background: #34495e;
+            border-radius: 50%;
+            line-height: 50px;
+            text-align: center;
+            color: #ffffff;
+            text-decoration: none;
+            transition: all 0.3s ease;
+        }
+
+        .social-links a:hover {
+            background: #3498db;
+            transform: translateY(-2px);
+        }
+
+        .footer-bottom {
+            border-top: 1px solid #34495e;
+            padding-top: 2rem;
+            color: #bdc3c7;
+        }
+
+        /* Responsive Design */
+        @media (max-width: 768px) {
+            .nav-links {
+                display: none;
+            }
+
+            .about-content {
+                grid-template-columns: 1fr;
+                gap: 3rem;
+                text-align: center;
+            }
+
+            .about-header h1 {
+                font-size: 2.5rem;
+            }
+
+            .values-grid {
+                grid-template-columns: 1fr;
+            }
+
+            .contact-form {
+                padding: 2rem;
+            }
+        }
+
+        @media (max-width: 480px) {
+            .container {
+                padding: 0 15px;
+            }
+
+            .about {
+                padding: 4rem 0;
+            }
+
+            .about-header h1 {
+                font-size: 2rem;
+            }
+
+            .about-image img {
+                width: 250px;
+                height: 250px;
+            }
+        }
+    </style>
+</head>
+<body>
+    <!-- Header -->
+    <header>
+        <nav class="container">
+            <div class="logo">N. Bharath</div>
+            <ul class="nav-links">
+                <li><a href="main-website.html">Home</a></li>
+                <li><a href="about.html">About</a></li>
+                <li><a href="#contact">Contact</a></li>
+            </ul>
+        </nav>
+    </header>
+
+    <!-- About Section -->
+    <section class="about">
+        <div class="container">
+            <div class="about-header">
+                <h1>About Me</h1>
+                <p>Learn more about my journey, values, and mission as a Perplexity Campus Partner</p>
+            </div>
+
+            <div class="about-content">
+                <div class="about-image">
+                    <!-- Replace with your actual photo from the profile directory -->
+                    <img src="bharath-profile.jpg" alt="N. Bharath - Perplexity Campus Partner at DSU">
+                </div>
+
+                <div class="about-text">
+                    <h2>My Journey</h2>
+                    <p>I'm N. Bharath, a Computer Science student at Dayananda Sagar University (DSU), passionate about leveraging technology to create meaningful impact. As a Perplexity Campus Partner, I bridge the gap between cutting-edge AI technology and academic excellence.</p>
+
+                    <p>My journey into technology began with a curiosity about how digital tools can transform learning experiences. Today, I focus on empowering students with AI-powered research tools and fostering a culture of innovation on campus.</p>
+
+                    <div class="highlight-box">
+                        <h3>🎯 My Mission</h3>
+                        <p>To democratize access to AI technology in education, helping students discover new possibilities in research, learning, and academic achievement through intelligent tools and collaborative innovation.</p>
+                    </div>
+
+                    <p>Beyond technology, I believe in the power of respectful networking, efficient time management, and creating opportunities for meaningful collaborations that benefit the entire campus community.</p>
+                </div>
+            </div>
+        </div>
+    </section>
+
+    <!-- Values Section -->
+    <section class="values">
+        <div class="container">
+            <h2>My Values & Philosophy</h2>
+            <div class="values-grid">
+                <div class="value-card">
+                    <h3>⏰ Time Respect</h3>
+                    <p>I believe time is our most valuable resource. I prioritize efficiency, punctuality, and meaningful engagement in all interactions and collaborations.</p>
+                </div>
+
+                <div class="value-card">
+                    <h3>🤝 Collaborative Innovation</h3>
+                    <p>Great ideas emerge from diverse perspectives. I foster inclusive environments where students can collaborate, share knowledge, and innovate together.</p>
+                </div>
+
+                <div class="value-card">
+                    <h3>🎓 Academic Excellence</h3>
+                    <p>Technology should enhance learning, not replace critical thinking. I promote tools that amplify human potential and academic achievement.</p>
+                </div>
+
+                <div class="value-card">
+                    <h3>🌱 Continuous Learning</h3>
+                    <p>In the rapidly evolving tech landscape, staying curious and adaptable is essential. I embrace new challenges and encourage lifelong learning.</p>
+                </div>
+
+                <div class="value-card">
+                    <h3>🔗 Meaningful Networking</h3>
+                    <p>Building genuine relationships based on mutual respect, shared interests, and collaborative growth within the tech and academic communities.</p>
+                </div>
+
+                <div class="value-card">
+                    <h3>🚀 Impact-Driven Action</h3>
+                    <p>Every initiative should create tangible value. I focus on projects and partnerships that make a real difference in students' academic journeys.</p>
+                </div>
+            </div>
+        </div>
+    </section>
+
+    <!-- Contact Section -->
+    <section class="contact" id="contact">
+        <div class="container">
+            <h2>Get In Touch</h2>
+            <form class="contact-form">
+                <div class="form-group">
+                    <label for="name">Your Name</label>
+                    <input type="text" id="name" name="name" required>
+                </div>
+
+                <div class="form-group">
+                    <label for="email">Email Address</label>
+                    <input type="email" id="email" name="email" required>
+                </div>
+
+                <div class="form-group">
+                    <label for="subject">Subject</label>
+                    <input type="text" id="subject" name="subject" required>
+                </div>
+
+                <div class="form-group">
+                    <label for="message">Message</label>
+                    <textarea id="message" name="message" placeholder="Share your thoughts, collaboration ideas, or questions..." required></textarea>
+                </div>
+
+                <button type="submit" class="submit-btn">Send Message</button>
+            </form>
+        </div>
+    </section>
+
+    <!-- Footer -->
+    <footer>
+        <div class="container">
+            <div class="footer-content">
+                <div class="footer-links">
+                    <a href="main-website.html">Home</a>
+                    <a href="about.html">About</a>
+                    <!-- Replace with your actual Comet Browser link -->
+                    <a href="https://comet.com/your-link-here" target="_blank">Comet Browser</a>
+                </div>
+                
+                <div class="social-links">
+                    <!-- Replace with your actual social media links -->
+                    <a href="https://linkedin.com/in/your-profile" target="_blank" title="LinkedIn">💼</a>
+                    <a href="https://github.com/your-username" target="_blank" title="GitHub">💻</a>
+                    <a href="https://comet.com/your-link-here" target="_blank" title="Comet Browser">🌟</a>
+                </div>
+            </div>
+            
+            <div class="footer-bottom">
+                <p>&copy; 2025 N. Bharath. All rights reserved. | Perplexity Campus Partner</p>
+            </div>
+        </div>
+    </footer>
+</body>
+</html>
