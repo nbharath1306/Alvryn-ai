@@ -9,7 +9,7 @@
     "worker": "node src/worker/runWorker.js",
   "refresh-worker": "node src/worker/refreshProviders.js",
     "dev:worker": "node src/worker/runWorker.js",
-    "test:enqueue": "node scripts/create_and_poll_job.js",
+    "migrate:encrypt-refresh-tokens": "node scripts/migrate-encrypt-refresh-tokens.js",
     "test": "mocha --exit --recursive 'test/**/*.spec.js'"
   },
   "dependencies": {
