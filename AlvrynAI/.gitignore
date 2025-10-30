@@ -1,0 +1,61 @@
+node_modules
+.env
+.env.local
+.DS_Store
+dist
+build
+
+# Ignore nested node_modules anywhere
+**/node_modules
+
+# macOS
+.DS_Store
+
+# Editor configs
+.vscode
+.idea
+
+# Logs
+*.log
+npm-debug.log*
+*yarn-debug.log*
+*yarn-error.log*
+
+# Python
+__pycache__/
+*.py[cod]
+*.pyo
+.venv/
+
+# Docker
+docker-compose.override.yml
+
+# Coverage
+coverage/
+
+# Temp
+tmp/
+
+# Ignore the large unrelated prototype folders that accidentally got staged
+prabandhan-*
+prabandhan*
+
+# Media and large assets (prevent accidental commits)
+*.mp4
+*.mov
+*.mp3
+*.wav
+*.flac
+*.jpg
+*.jpeg
+*.png
+*.gif
+*.heic
+
+# Local prototype directories that live next to the repo
+../EQUDATOR/
+../NeuroLoom/
+
+# Git submodule / embedded repo paths (avoid accidental staging)
+EQUDATOR/Website/
+NeuroLoom/
