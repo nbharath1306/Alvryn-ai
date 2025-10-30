@@ -1,0 +1,76 @@
+<!doctype html>
+<html>
+<head>
+  <meta charset="utf-8" />
+  <title>Alvryn Admin</title>
+  <style>
+    body { font-family: Arial, sans-serif; max-width: 1000px; margin: 20px auto; }
+    pre { background: #f6f8fa; padding: 10px; overflow: auto; }
+    table { width: 100%; border-collapse: collapse; }
+    th, td { text-align: left; padding: 8px; border-bottom: 1px solid #ddd; }
+    .controls { margin-bottom: 12px; }
+  </style>
+</head>
+<body>
+  <h1>Alvryn Admin</h1>
+  <p>Quick admin UI to inspect Stripe events and Audit logs (requires admin API auth).</p>
+  <div class="controls">
+    <button id="loadEvents">Load Stripe Events</button>
+    <button id="loadLogs">Load Audit Logs</button>
+  </div>
+  <h2>Stripe Events</h2>
+  <div id="events"></div>
+  <h2>Audit Logs</h2>
+  <div id="logs"></div>
+
+  <script>
+    async function fetchJson(url) {
+      const res = await fetch(url, { credentials: 'include' });
+      if (!res.ok) {
+        document.getElementById('events').innerText = 'Error: ' + res.status + ' ' + (await res.text());
+        return null;
+      }
+      return res.json();
+    }
+
+    document.getElementById('loadEvents').addEventListener('click', async ()=>{
+      const d = await fetchJson('/api/admin/stripe-events');
+      if (!d) return;
+      const container = document.getElementById('events');
+      container.innerHTML = '';
+      if (!d.events || d.events.length===0) { container.innerText = 'No events'; return; }
+      const table = document.createElement('table');
+      const thead = document.createElement('thead');
+      thead.innerHTML = '<tr><th>Event ID</th><th>Type</th><th>Received At</th><th>Raw</th></tr>';
+      table.appendChild(thead);
+      const tbody = document.createElement('tbody');
+      d.events.forEach(e => {
+        const tr = document.createElement('tr');
+        const tdId = document.createElement('td'); tdId.textContent = e.eventId || '';
+        const tdType = document.createElement('td'); tdType.textContent = e.type || '';
+        const tdAt = document.createElement('td'); tdAt.textContent = e.receivedAt ? new Date(e.receivedAt).toLocaleString() : '';
+        const tdRaw = document.createElement('td'); tdRaw.innerHTML = '<pre>' + (e.raw ? JSON.stringify(e.raw, null, 2) : '') + '</pre>';
+        tr.appendChild(tdId); tr.appendChild(tdType); tr.appendChild(tdAt); tr.appendChild(tdRaw);
+        tbody.appendChild(tr);
+      });
+      table.appendChild(tbody);
+      container.appendChild(table);
+    });
+
+    document.getElementById('loadLogs').addEventListener('click', async ()=>{
+      const d = await fetchJson('/api/admin/audit-logs');
+      if (!d) return;
+      const container = document.getElementById('logs');
+      container.innerHTML = '';
+      if (!d.logs || d.logs.length===0) { container.innerText = 'No logs'; return; }
+      const ol = document.createElement('ol');
+      d.logs.forEach(l => {
+        const li = document.createElement('li');
+        li.innerHTML = '<strong>' + (l.action || '') + '</strong> by ' + (l.user && l.user.email ? l.user.email : 'system') + ' @ ' + new Date(l.createdAt).toLocaleString() + '<pre>' + JSON.stringify(l.data, null, 2) + '</pre>';
+        ol.appendChild(li);
+      });
+      container.appendChild(ol);
+    });
+  </script>
+</body>
+</html>
