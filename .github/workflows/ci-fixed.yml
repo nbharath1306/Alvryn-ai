@@ -12,7 +12,7 @@ jobs:
     runs-on: ubuntu-latest
     defaults:
       run:
-        working-directory: backend
+        working-directory: AlvrynAI/backend
     steps:
       - name: Checkout
         uses: actions/checkout@v4
@@ -20,7 +20,7 @@ jobs:
       - name: Use Node.js
         uses: actions/setup-node@v4
         with:
-          node-version: '18'
+          node-version: "18"
 
       - name: Install dependencies
         run: npm ci
@@ -40,6 +40,7 @@ jobs:
 
       - name: Start services with docker compose
         run: |
+          cd AlvrynAI
           docker compose up -d --build
 
       - name: Wait for backend to become healthy
@@ -59,4 +60,5 @@ jobs:
       - name: Tear down
         if: always()
         run: |
+          cd AlvrynAI
           docker compose down --volumes
