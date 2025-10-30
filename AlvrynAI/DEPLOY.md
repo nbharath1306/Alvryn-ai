@@ -15,6 +15,32 @@ This checklist covers the minimal steps and environment needed to deploy the bac
    - Prefer using a KMS (AWS KMS / GCP KMS / Azure Key Vault). Store only a wrapped key or fetch a data key at runtime.
    - Do NOT check secrets into git.
 
+   KMS key flow (AWS example)
+   ---------------------------------
+   If you prefer not to store a raw 32-byte key in env, you can use AWS KMS to encrypt the key and set
+   the encrypted blob as `FIELD_ENCRYPTION_KEY_ENC`. The app will attempt to decrypt it using KMS at
+   startup (requires AWS credentials with kms:Decrypt permission).
+
+   1) Generate and encrypt a random key locally (requires AWS CLI configured):
+
+   ```bash
+   cd backend
+   KMS_KEY_ID="arn:aws:kms:...:key/xxxx" ./scripts/generate-encrypted-key.sh encrypted-key.b64
+   ```
+
+   The script prints the plaintext base64 key (save it somewhere secure) and writes `encrypted-key.b64`.
+
+   2) In your environment, set:
+
+   ```bash
+   export FIELD_ENCRYPTION_KEY_ENC="$(cat encrypted-key.b64)"
+   # Ensure the runtime environment has AWS credentials (instance role or AWS_ACCESS_KEY_ID) with kms:Decrypt
+   ```
+
+   3) Start the app; it will attempt to decrypt the encrypted blob using AWS KMS and use the resulting key
+       for AES-256-GCM field encryption.
+
+
 3) Database
    - Use a managed MongoDB (Atlas, DocumentDB, etc.) with TLS and backups enabled.
    - Ensure user accounts have least privilege and IP/network restrictions.
