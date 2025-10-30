@@ -39,3 +39,23 @@ tmp/
 # Ignore the large unrelated prototype folders that accidentally got staged
 prabandhan-*
 prabandhan*
+
+# Media and large assets (prevent accidental commits)
+*.mp4
+*.mov
+*.mp3
+*.wav
+*.flac
+*.jpg
+*.jpeg
+*.png
+*.gif
+*.heic
+
+# Local prototype directories that live next to the repo
+../EQUDATOR/
+../NeuroLoom/
+
+# Git submodule / embedded repo paths (avoid accidental staging)
+EQUDATOR/Website/
+NeuroLoom/
