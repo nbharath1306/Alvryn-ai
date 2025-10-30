@@ -1,0 +1,37 @@
+{
+  "name": "alvryn-backend",
+  "version": "0.1.0",
+  "main": "src/index.js",
+  "license": "MIT",
+  "scripts": {
+    "start": "node src/index.js",
+    "dev": "nodemon src/index.js",
+    "worker": "node src/worker/runWorker.js",
+    "dev:worker": "node src/worker/runWorker.js",
+    "test:enqueue": "node scripts/create_and_poll_job.js",
+    "test": "mocha --exit --recursive 'test/**/*.spec.js'"
+  },
+  "dependencies": {
+    "bcrypt": "^5.1.0",
+    "body-parser": "^1.20.2",
+    "cors": "^2.8.5",
+    "cookie-parser": "^1.4.6",
+    "dotenv": "^16.0.3",
+    "express": "^4.18.2",
+    "jsonwebtoken": "^9.0.0",
+    "mongoose": "^7.2.2",
+    "node-fetch": "^2.6.7",
+    "express-rate-limit": "^6.8.0",
+    "socket.io": "^4.7.1",
+    "stripe": "^12.16.0",
+    "prom-client": "^14.0.0"
+  },
+  "devDependencies": {
+    "nodemon": "^2.0.22",
+    "mocha": "^10.2.0",
+    "chai": "^4.3.7",
+    "supertest": "^6.3.3",
+    "mongodb-memory-server": "^8.12.1",
+    "nock": "^13.3.0"
+  }
+}
