@@ -39,6 +39,9 @@ describe('Stripe webhook handling', function(){
   it('handles checkout.session.completed and creates Subscription record', async () => {
     const user = await User.create({ email: 'pay@test.com', name: 'Pay Test' });
 
+    // configure price map so price id maps to plan slug 'pro_monthly'
+    process.env.STRIPE_PRICE_MAP = 'price_monthly_001:pro_monthly';
+
     const fakeSession = {
       id: 'sess_1',
       object: 'checkout.session',
@@ -57,7 +60,8 @@ describe('Stripe webhook handling', function(){
     expect(sub.stripeSubscriptionId).to.equal('sub_123');
     expect(sub.stripeCustomerId).to.equal('cus_456');
     expect(sub.status).to.equal('active');
-    expect(sub.plan).to.equal('price_monthly_001');
+    // code maps Stripe price id -> internal plan slug via STRIPE_PRICE_MAP
+    expect(sub.plan).to.equal('pro_monthly');
   });
 
   it('is idempotent: posting same event twice only processes once', async () => {

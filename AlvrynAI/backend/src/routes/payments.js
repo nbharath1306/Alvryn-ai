@@ -29,6 +29,28 @@ async function ensureStripeCustomer(user) {
   return customer.id;
 }
 
+// Helper: map a Stripe price id to an internal plan slug using env config
+function loadPriceMap() {
+  // Accept JSON in STRIPE_PRICE_MAP_JSON or simple comma-separated pairs in STRIPE_PRICE_MAP
+  const json = process.env.STRIPE_PRICE_MAP_JSON;
+  if (json) {
+    try { return JSON.parse(json); } catch (e) { console.warn('Invalid STRIPE_PRICE_MAP_JSON', e.message); }
+  }
+  const raw = process.env.STRIPE_PRICE_MAP || '';
+  const map = {};
+  raw.split(',').map(s => s.trim()).filter(Boolean).forEach(pair => {
+    const [k,v] = pair.split(':').map(x => x && x.trim());
+    if (k && v) map[k] = v;
+  });
+  return map;
+}
+
+function mapPriceToPlan(priceId) {
+  if (!priceId) return null;
+  const m = loadPriceMap();
+  return m[priceId] || priceId;
+}
+
 // Create a checkout session (placeholder: plan IDs should be created in Stripe)
 // Require authentication to create a checkout session (user must be logged in)
 router.post('/create-checkout-session', requireAuth, async (req, res) => {
@@ -129,11 +151,11 @@ router.post('/webhook', express.raw({ type: 'application/json' }), async (req, r
             const remote = await stripe.subscriptions.retrieve(stripeSubscriptionId);
             if (remote && remote.current_period_end) sub.currentPeriodEnd = new Date(remote.current_period_end * 1000);
           } catch (e) { console.warn('Could not fetch remote subscription', e.message); }
-          if (priceId) sub.plan = priceId;
+          if (priceId) sub.plan = mapPriceToPlan(priceId) || priceId;
           await sub.save();
 
           // Update user subscription summary
-          await User.findByIdAndUpdate(userId, { subscription: { plan: priceId || 'unknown', status: 'active', expiresAt: sub.currentPeriodEnd } });
+          await User.findByIdAndUpdate(userId, { subscription: { plan: mapPriceToPlan(priceId) || priceId || 'unknown', status: 'active', expiresAt: sub.currentPeriodEnd } });
         }
         break;
       }
@@ -149,6 +171,11 @@ router.post('/webhook', express.raw({ type: 'application/json' }), async (req, r
         if (sub) {
           sub.status = s.status;
           if (s.current_period_end) sub.currentPeriodEnd = new Date(s.current_period_end * 1000);
+          // Try to map plan/price info if available on object
+          if (s.items && s.items.data && s.items.data.length > 0) {
+            const priceId = s.items.data[0].price && (s.items.data[0].price.id || s.items.data[0].price.product);
+            if (priceId) sub.plan = mapPriceToPlan(priceId) || priceId;
+          }
           await sub.save();
           // update user record too
           await User.findByIdAndUpdate(sub.user, { subscription: { plan: sub.plan || 'unknown', status: sub.status, expiresAt: sub.currentPeriodEnd } });

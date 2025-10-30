@@ -20,6 +20,8 @@ const UserSchema = new mongoose.Schema({
       email: String,
       name: String,
       avatarUrl: String,
+      // providerRefreshToken: optional refresh token from the OAuth provider (stored for background refresh)
+      providerRefreshToken: String,
       raw: {}
     }
   ],

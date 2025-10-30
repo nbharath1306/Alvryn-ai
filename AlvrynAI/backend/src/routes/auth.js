@@ -145,6 +145,36 @@ router.post('/logout', requireAuth, async (req, res) => {
 
 module.exports = router;
 
+// Provider management endpoints
+// GET /api/auth/providers - list linked providers for current user
+router.get('/providers', requireAuth, async (req, res) => {
+  try {
+    const user = req.user;
+    const providers = (user.oauth || []).map(o => ({ provider: o.provider, providerId: o.providerId, email: o.email, name: o.name, avatarUrl: o.avatarUrl }));
+    res.json({ providers });
+  } catch (err) {
+    console.error('providers list error', err);
+    res.status(500).json({ error: 'Server error' });
+  }
+});
+
+// POST /api/auth/providers/:provider/unlink - unlink a provider from account
+router.post('/providers/:provider/unlink', requireAuth, async (req, res) => {
+  try {
+    const provider = req.params.provider;
+    if (!provider) return res.status(400).json({ error: 'Missing provider' });
+    const user = req.user;
+    const before = (user.oauth || []).length;
+    user.oauth = (user.oauth || []).filter(o => o.provider !== provider);
+    await user.save();
+    const after = (user.oauth || []).length;
+    res.json({ ok: true, removed: before - after, providers: user.oauth.map(o => ({ provider: o.provider, providerId: o.providerId })) });
+  } catch (err) {
+    console.error('unlink error', err);
+    res.status(500).json({ error: 'Server error' });
+  }
+});
+
 // Export a helper to mount passport and additional provider routes on an express app
 module.exports.setupOAuth = function(app){
   // Implement server-side OAuth flows for Google and Microsoft without using Passport.
@@ -153,19 +183,26 @@ module.exports.setupOAuth = function(app){
   const FRONTEND_URL = process.env.FRONTEND_URL || 'http://localhost:3000';
 
   // Helper: find or create user based on provider profile
-  async function findOrCreateOAuthUser(provider, providerId, email, displayName, avatarUrl, raw) {
+  async function findOrCreateOAuthUser(provider, providerId, email, displayName, avatarUrl, raw, providerRefreshToken) {
+    // Find by provider id first; fallback to email to allow account linking
     let user = await User.findOne({ 'oauth.provider': provider, 'oauth.providerId': providerId });
     if (!user && email) user = await User.findOne({ email });
     if (!user) {
       user = new User({ email, name: displayName, avatarUrl });
-      user.oauth = [{ provider, providerId, email, name: displayName, avatarUrl, raw }];
+      user.oauth = [{ provider, providerId, email, name: displayName, avatarUrl, providerRefreshToken, raw }];
       await user.save();
       return user;
     }
-    const has = (user.oauth || []).some(o => o.provider === provider && o.providerId === providerId);
-    if (!has) {
+    const existingIndex = (user.oauth || []).findIndex(o => o.provider === provider && o.providerId === providerId);
+    if (existingIndex === -1) {
       user.oauth = user.oauth || [];
-      user.oauth.push({ provider, providerId, email, name: displayName, avatarUrl, raw });
+      user.oauth.push({ provider, providerId, email, name: displayName, avatarUrl, providerRefreshToken, raw });
+      await user.save();
+      return user;
+    }
+    // Update providerRefreshToken if provided
+    if (providerRefreshToken) {
+      user.oauth[existingIndex].providerRefreshToken = providerRefreshToken;
       await user.save();
     }
     return user;
@@ -213,8 +250,9 @@ module.exports.setupOAuth = function(app){
             grant_type: 'authorization_code'
           })
         });
-        const tokenJson = await tokenResp.json();
-        const accessToken = tokenJson.access_token;
+  const tokenJson = await tokenResp.json();
+  const accessToken = tokenJson.access_token;
+  const providerRefreshToken = tokenJson.refresh_token;
         if (!accessToken) return res.redirect(`${FRONTEND_URL}/?auth=failed`);
         const userinfoResp = await fetch('https://openidconnect.googleapis.com/v1/userinfo', { headers: { Authorization: `Bearer ${accessToken}` } });
         const info = await userinfoResp.json();
@@ -223,7 +261,21 @@ module.exports.setupOAuth = function(app){
         const displayName = info.name;
         const avatarUrl = info.picture;
 
-        const user = await findOrCreateOAuthUser('google', providerId, email, displayName, avatarUrl, info);
+        const user = await findOrCreateOAuthUser('google', providerId, email, displayName, avatarUrl, info, providerRefreshToken);
+        // persist access token and expiry into the oauth.raw for background use
+        try {
+          if (tokenJson && tokenJson.access_token) {
+            const expiresIn = parseInt(tokenJson.expires_in || '0', 10);
+            const entry = (user.oauth || []).find(o => o.provider === 'google' && o.providerId === providerId);
+            if (entry) {
+              entry.raw = entry.raw || {};
+              entry.raw.access_token = tokenJson.access_token;
+              if (expiresIn) entry.raw.expires_at = Date.now() + expiresIn * 1000;
+              entry.raw.scope = tokenJson.scope || entry.raw.scope;
+              await user.save();
+            }
+          }
+        } catch (e) { console.warn('persist provider access token error', e && e.message); }
 
         // Issue app tokens and set httpOnly refresh cookie
         const aToken = signAccess(user);
@@ -281,8 +333,9 @@ module.exports.setupOAuth = function(app){
             grant_type: 'authorization_code'
           })
         });
-        const tokenJson = await tokenResp.json();
-        const accessToken = tokenJson.access_token;
+  const tokenJson = await tokenResp.json();
+  const accessToken = tokenJson.access_token;
+  const providerRefreshToken = tokenJson.refresh_token;
         if (!accessToken) return res.redirect(`${FRONTEND_URL}/?auth=failed`);
         const userinfoResp = await fetch('https://graph.microsoft.com/oidc/userinfo', { headers: { Authorization: `Bearer ${accessToken}` } });
         const info = await userinfoResp.json();
@@ -291,7 +344,21 @@ module.exports.setupOAuth = function(app){
         const displayName = info.name || null;
         const avatarUrl = null;
 
-        const user = await findOrCreateOAuthUser('microsoft', providerId, email, displayName, avatarUrl, info);
+        const user = await findOrCreateOAuthUser('microsoft', providerId, email, displayName, avatarUrl, info, providerRefreshToken);
+        // persist access token and expiry into oauth.raw
+        try {
+          if (tokenJson && tokenJson.access_token) {
+            const expiresIn = parseInt(tokenJson.expires_in || '0', 10);
+            const entry = (user.oauth || []).find(o => o.provider === 'microsoft' && (o.providerId === providerId || String(o.providerId) === String(providerId)));
+            if (entry) {
+              entry.raw = entry.raw || {};
+              entry.raw.access_token = tokenJson.access_token;
+              if (expiresIn) entry.raw.expires_at = Date.now() + expiresIn * 1000;
+              entry.raw.scope = tokenJson.scope || entry.raw.scope;
+              await user.save();
+            }
+          }
+        } catch (e) { console.warn('persist provider access token error', e && e.message); }
 
         const aToken = signAccess(user);
         const rToken = signRefresh(user);
