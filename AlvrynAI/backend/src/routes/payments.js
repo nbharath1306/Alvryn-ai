@@ -11,6 +11,7 @@ const { requireAuth } = require('../middleware/auth');
 const User = require('../models/User');
 const Subscription = require('../models/Subscription');
 const StripeEvent = require('../models/StripeEvent');
+const { uploadJson } = require('../lib/s3Store');
 
 // Helper: create or return a Stripe customer id for a user
 async function ensureStripeCustomer(user) {
@@ -193,7 +194,24 @@ router.post('/webhook', express.raw({ type: 'application/json' }), async (req, r
   // Persist processed event id for future idempotency checks
   try {
     if (event && event.id) {
-      await StripeEvent.create({ eventId: event.id, type: event.type });
+      // If configured, archive the raw event to S3 to avoid storing large payloads in DB
+      let s3Key = null;
+      const bucket = process.env.STRIPE_EVENT_S3_BUCKET;
+      if (bucket) {
+        try {
+          s3Key = await uploadJson(bucket, 'stripe-events', event);
+        } catch (e) {
+          console.warn('Could not upload stripe event to S3', e && e.message);
+          s3Key = null;
+        }
+      }
+      const toStore = { eventId: event.id, type: event.type, headers: req.headers, processedAt: new Date() };
+      if (s3Key) {
+        toStore.s3Key = s3Key;
+      } else {
+        toStore.raw = event;
+      }
+      await StripeEvent.create(toStore);
     }
   } catch (ee) {
     // ignore duplicate key errors etc

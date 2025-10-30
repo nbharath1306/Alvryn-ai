@@ -40,6 +40,22 @@ This checklist covers the minimal steps and environment needed to deploy the bac
    3) Start the app; it will attempt to decrypt the encrypted blob using AWS KMS and use the resulting key
        for AES-256-GCM field encryption.
 
+   Optional: archive raw Stripe webhook events to S3
+   ------------------------------------------------
+   To avoid storing very large raw Stripe webhook payloads in the database, you can set up S3 archival.
+
+   1) Create an S3 bucket and policy that allows PutObject for the runtime role/credentials used by the app.
+   2) Set the environment variable:
+
+   ```bash
+   export STRIPE_EVENT_S3_BUCKET="my-alvryn-stripe-events"
+   ```
+
+   At runtime the app will attempt to upload each received Stripe event JSON to S3 and store only the
+   S3 key in the database. If the upload fails for any reason, the raw payload will be stored in the DB
+   as a fallback.
+
+
 
 3) Database
    - Use a managed MongoDB (Atlas, DocumentDB, etc.) with TLS and backups enabled.
