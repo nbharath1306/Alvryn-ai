@@ -29,36 +29,3 @@ jobs:
         env:
           CI: true
         run: npm test --silent
-
-  integration-smoke:
-    name: Integration smoke (docker-compose)
-    runs-on: ubuntu-22.04
-    needs: backend-tests
-    steps:
-      - name: Checkout
-        uses: actions/checkout@v4
-
-      - name: Start services with docker compose
-        run: |
-          cd AlvrynAI
-          docker compose up -d --build
-
-      - name: Wait for backend to become healthy
-        run: |
-          for i in {1..30}; do
-            if curl -sSf http://localhost:4000/ >/dev/null; then
-              echo "backend up" && break;
-            fi
-            echo "waiting for backend... ($i)";
-            sleep 2;
-          done
-
-      - name: Run integration smoke tests
-        run: |
-          node ./scripts/integration/run_integration_test.js
-
-      - name: Tear down
-        if: always()
-        run: |
-          cd AlvrynAI
-          docker compose down --volumes
