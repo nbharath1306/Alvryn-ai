@@ -27,7 +27,9 @@ services:
     command: ["npm", "run", "worker"]
 
   frontend:
-    build: ./frontend
+    image: nginx:alpine
+    volumes:
+      - ./frontend:/usr/share/nginx/html:ro
     ports:
       - "3000:3000"
     depends_on:
