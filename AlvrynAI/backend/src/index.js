@@ -89,12 +89,16 @@ app.use('/api/gdpr', gdprRoutes);
 app.use('/api/admin', adminRoutes);
 app.use('/api/tasks', tasksRoutes);
 
+// Serve admin static UI (simple pages) at /admin
+const path = require('path');
+app.use('/admin', express.static(path.join(__dirname, '..', 'public', 'admin')));
+
 app.get('/', (req, res) => res.json({ ok: true, msg: 'Alvryn AI backend running' }));
 
 // Prometheus metrics endpoint
 app.get('/metrics', async (req, res) => {
   // refresh dynamic gauges
-  try { await metrics.refreshQueueDepth(); } catch (e) { /* ignore */ }
+  try { await metrics.refreshQueueDepth(); } catch { /* ignore */ }
   res.set('Content-Type', metrics.register.contentType);
   res.send(await metrics.register.metrics());
 });

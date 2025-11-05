@@ -1,0 +1,71 @@
+# Render.com deployment configuration
+# This file helps you deploy the Alvryn AI backend to Render
+
+services:
+  - type: web
+    name: alvryn-backend
+    env: node
+    region: oregon
+    plan: free
+    buildCommand: npm install
+    startCommand: npm start
+    rootDir: backend
+    envVars:
+      - key: NODE_ENV
+        value: production
+      - key: PORT
+        value: 4000
+      - key: MONGO_URI
+        sync: false  # Add your MongoDB Atlas connection string in Render dashboard
+      - key: JWT_SECRET
+        generateValue: true
+      - key: JWT_REFRESH_SECRET
+        generateValue: true
+      - key: FRONTEND_URL
+        sync: false  # Add your Vercel frontend URL
+      - key: BACKEND_URL
+        value: https://alvryn-backend.onrender.com  # Update with your actual Render URL
+      - key: STRIPE_SECRET_KEY
+        sync: false  # Add your Stripe secret key
+      - key: STRIPE_WEBHOOK_SECRET
+        sync: false  # Add your Stripe webhook secret
+      - key: GOOGLE_CLIENT_ID
+        sync: false  # Optional: for Google OAuth
+      - key: GOOGLE_CLIENT_SECRET
+        sync: false  # Optional: for Google OAuth
+      - key: MICROSOFT_CLIENT_ID
+        sync: false  # Optional: for Microsoft OAuth
+      - key: MICROSOFT_CLIENT_SECRET
+        sync: false  # Optional: for Microsoft OAuth
+      - key: OPENAI_API_KEY
+        sync: false  # Optional: for AI features
+      - key: FIELD_ENCRYPTION_KEY
+        generateValue: true
+      - key: RATE_LIMIT_WINDOW_MS
+        value: 60000
+      - key: RATE_LIMIT_MAX
+        value: 300
+
+  - type: worker
+    name: alvryn-worker
+    env: node
+    region: oregon
+    plan: free
+    buildCommand: npm install
+    startCommand: npm run worker
+    rootDir: backend
+    envVars:
+      - key: MONGO_URI
+        fromService:
+          type: web
+          name: alvryn-backend
+          envVarKey: MONGO_URI
+      - key: OPENAI_API_KEY
+        fromService:
+          type: web
+          name: alvryn-backend
+          envVarKey: OPENAI_API_KEY
+
+databases:
+  - name: alvryn-mongo
+    plan: free
