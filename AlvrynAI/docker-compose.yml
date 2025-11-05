@@ -29,9 +29,9 @@ services:
   frontend:
     image: nginx:alpine
     volumes:
-      - ./frontend:/usr/share/nginx/html:ro
+      - ./frontend/build:/usr/share/nginx/html:ro
     ports:
-      - "3000:3000"
+      - "3000:80"
     depends_on:
       - backend
 

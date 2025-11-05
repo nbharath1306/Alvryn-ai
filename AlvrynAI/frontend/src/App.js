@@ -1,7 +1,7 @@
 import React, { useState, useEffect } from "react";
 import "./App.css";
 
-const API = "http://localhost:4000/api";
+const API = process.env.REACT_APP_API_URL || "http://localhost:4000/api";
 
 function App() {
   const [user, setUser] = useState(null);
@@ -10,16 +10,19 @@ function App() {
   const [name, setName] = useState("");
   const [feed, setFeed] = useState([]);
   const [error, setError] = useState("");
+  const [loading, setLoading] = useState(false);
 
   useEffect(() => {
     fetch(`${API}/content/feed`)
       .then((res) => res.json())
-      .then((data) => setFeed(data.items || []));
+      .then((data) => setFeed(data.items || []))
+      .catch((err) => console.error("Failed to load feed:", err));
   }, []);
 
   const signup = async (e) => {
     e.preventDefault();
     setError("");
+    setLoading(true);
     try {
       const res = await fetch(`${API}/auth/signup`, {
         method: "POST",
@@ -27,16 +30,23 @@ function App() {
         body: JSON.stringify({ email, password, name }),
       });
       const data = await res.json();
-      if (data.accessToken) setUser(data.user);
-      else setError(data.error || "Signup failed");
+      if (data.accessToken) {
+        setUser(data.user);
+        localStorage.setItem("accessToken", data.accessToken);
+      } else {
+        setError(data.error || "Signup failed");
+      }
     } catch (err) {
-      setError("Signup error");
+      setError("Signup error: " + err.message);
+    } finally {
+      setLoading(false);
     }
   };
 
   const login = async (e) => {
     e.preventDefault();
     setError("");
+    setLoading(true);
     try {
       const res = await fetch(`${API}/auth/login`, {
         method: "POST",
@@ -44,10 +54,16 @@ function App() {
         body: JSON.stringify({ email, password }),
       });
       const data = await res.json();
-      if (data.accessToken) setUser(data.user);
-      else setError(data.error || "Login failed");
+      if (data.accessToken) {
+        setUser(data.user);
+        localStorage.setItem("accessToken", data.accessToken);
+      } else {
+        setError(data.error || "Login failed");
+      }
     } catch (err) {
-      setError("Login error");
+      setError("Login error: " + err.message);
+    } finally {
+      setLoading(false);
     }
   };
 
@@ -65,18 +81,18 @@ function App() {
           <div className="form-section">
             <h2>Sign Up</h2>
             <form onSubmit={signup}>
-              <input placeholder="Name" value={name} onChange={e => setName(e.target.value)} />
-              <input placeholder="Email" value={email} onChange={e => setEmail(e.target.value)} />
-              <input type="password" placeholder="Password" value={password} onChange={e => setPassword(e.target.value)} />
-              <button type="submit">Sign Up</button>
+              <input placeholder="Name" value={name} onChange={e => setName(e.target.value)} required />
+              <input placeholder="Email" type="email" value={email} onChange={e => setEmail(e.target.value)} required />
+              <input type="password" placeholder="Password" value={password} onChange={e => setPassword(e.target.value)} required />
+              <button type="submit" disabled={loading}>{loading ? "Loading..." : "Sign Up"}</button>
             </form>
           </div>
           <div className="form-section">
             <h2>Login</h2>
             <form onSubmit={login}>
-              <input placeholder="Email" value={email} onChange={e => setEmail(e.target.value)} />
-              <input type="password" placeholder="Password" value={password} onChange={e => setPassword(e.target.value)} />
-              <button type="submit">Login</button>
+              <input placeholder="Email" type="email" value={email} onChange={e => setEmail(e.target.value)} required />
+              <input type="password" placeholder="Password" value={password} onChange={e => setPassword(e.target.value)} required />
+              <button type="submit" disabled={loading}>{loading ? "Loading..." : "Login"}</button>
             </form>
             {error && <div className="error">{error}</div>}
           </div>

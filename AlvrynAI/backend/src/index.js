@@ -98,7 +98,7 @@ app.get('/', (req, res) => res.json({ ok: true, msg: 'Alvryn AI backend running'
 // Prometheus metrics endpoint
 app.get('/metrics', async (req, res) => {
   // refresh dynamic gauges
-  try { await metrics.refreshQueueDepth(); } catch (e) { /* ignore */ }
+  try { await metrics.refreshQueueDepth(); } catch { /* ignore */ }
   res.set('Content-Type', metrics.register.contentType);
   res.send(await metrics.register.metrics());
 });
